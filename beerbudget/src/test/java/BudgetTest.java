@@ -5,6 +5,7 @@
  * and open the template in the editor.
  */
 
+import beerbudget.Budget;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author saklindq
  */
-public class beerbudgetTest {
+public class BudgetTest {
     
-    public beerbudgetTest() {
+    public BudgetTest() {
     }
     
     @BeforeClass
@@ -39,12 +40,7 @@ public class beerbudgetTest {
     
     @Test
     public void hello() {
-        
+        Budget testi = new Budget(3.5);
+        assertEquals(3.5, testi.getTarget(), 0.5);
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
 }
