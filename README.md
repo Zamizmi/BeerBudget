@@ -1,2 +1,2 @@
-# beerbudget
-Java application for people whom are interested in their usage of money. App tells how many beers one can buy at the given date and current budget.
+# BeerBudget
+Java-sovellus Helsingin Yliopiston Tietojenkäsittelytieteenlaitoksen Harjoitustyö-kurssille. Sovellus laskee kuinka paljon saat säästettyä rahaa seuraavaksi Vapuksi olueen.		
