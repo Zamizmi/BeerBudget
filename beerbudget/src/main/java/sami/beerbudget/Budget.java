@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package beerbudget;
+package sami.beerbudget;
 
 import java.util.ArrayList;
 import java.util.Date;
+import sami.logic.BudgetLogic;
 
 /**
  *
@@ -21,10 +22,9 @@ public class Budget {
     private ArrayList<MoneyFlow> incomes;
     private ArrayList<MoneyFlow> expenses;
 
-    public Budget(double target, Date end) {
-        this.target = target;
+    public Budget() {
+        this.target = 0;
         this.balance = 0;
-        this.end = end;
         this.moneyflow = new ArrayList<>();
         this.incomes = new ArrayList<>();
         this.expenses = new ArrayList<>();
@@ -45,29 +45,44 @@ public class Budget {
     public double getTarget() {
         return target;
     }
-    
-    public double getAllIncomes() {
-        double toReturn = 0;
-        for (MoneyFlow flow : this.incomes) {
-            if (flow.isExpense())
-            toReturn +=flow.getAmount() ;
-        }
-        return toReturn;
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public Date getEnd() {
+        return end;
     }
     
-    public double getAllExpenses() {
-        double toReturn = 0;
-        for (MoneyFlow flow : this.expenses) {
-            if (!flow.isExpense()) {
-            toReturn +=flow.getAmount() ;
-            }
+    
+
+    public void addExpense(MoneyFlow expense) {
+        if (!this.expenses.contains(expense)) {
+            this.expenses.add(expense);
         }
-        return toReturn;
+    }
+
+    public void addIncome(MoneyFlow income) {
+        if (!this.incomes.contains(income)) {
+            this.incomes.add(income);
+        }
+    }
+
+    public ArrayList<MoneyFlow> getExpenses() {
+        return expenses;
+    }
+
+    public ArrayList<MoneyFlow> getIncomes() {
+        return incomes;
+    }
+
+    public ArrayList<MoneyFlow> getMoneyflow() {
+        return moneyflow;
     }
 
     @Override
     public String toString() {
-        return "Your balance is: " + this.balance + " and you are " + (this.target - this.balance) + " short";
+        return "Your balance is: " + this.balance + " and you are " + (this.target - this.balance) + " short" + "\n";
     }
 
 }

@@ -1,3 +1,4 @@
+package sami.logic;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -5,22 +6,18 @@
  * and open the template in the editor.
  */
 
-import beerbudget.Budget;
-import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author saklindq
  */
-public class BudgetTest {
+public class BudgetLogicTest {
     
-    public BudgetTest() {
+    public BudgetLogicTest() {
     }
     
     @BeforeClass
@@ -38,10 +35,10 @@ public class BudgetTest {
     @After
     public void tearDown() {
     }
-    
-    @Test
-    public void hello() {
-        Budget testi = new Budget(3.5, new Date(1,1,2017));
-        assertEquals(3.5, testi.getTarget(), 0.5);
-    }
+
+    // TODO add test methods here.
+    // The methods must be annotated with annotation @Test. For example:
+    //
+    // @Test
+    // public void hello() {}
 }
