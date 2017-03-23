@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sami.gui;
+package sami.beerbudget.gui;
 
 import java.util.Scanner;
-import sami.beerbudget.MoneyFlow;
-import sami.logic.BudgetLogic;
-import sami.logic.Date;
+import sami.beerbudget.budget.MoneyFlow;
+import sami.beerbudget.logic.BudgetLogic;
+import sami.beerbudget.logic.Date;
 
 /**
  *
@@ -78,7 +78,6 @@ public class Interface {
                 //commands();
             }
         }
-
     }
 
     public void currentBalance() {
@@ -111,7 +110,6 @@ public class Interface {
     public void printTarget() {
         //TODO
         System.out.println("According to the budget you wish to save a lot of money");
-
     }
 
     public void firstOfMay() {
@@ -157,9 +155,7 @@ public class Interface {
             }
         }
         Date expiration = askForDate();
-
         this.logic.newExpense(name, amount, new Date(), monthly);
-
     }
 
     public void newIncome() {
@@ -183,9 +179,7 @@ public class Interface {
             }
         }
         Date expiration = askForDate();
-
         this.logic.newIncome(name, amount, expiration, monthly);
-
     }
 
     public Date askForDate() {
@@ -201,5 +195,4 @@ public class Interface {
         toReturn.setYear(year);
         return toReturn;
     }
-
 }

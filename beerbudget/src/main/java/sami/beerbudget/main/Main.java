@@ -1,5 +1,7 @@
+package sami.beerbudget.main;
 
-import sami.gui.Interface;
+
+import sami.beerbudget.gui.Interface;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sami.beerbudget;
+package sami.beerbudget.budget;
 
 import java.util.ArrayList;
-import sami.logic.Date;
+import sami.beerbudget.logic.Date;
 
 /**
  *
@@ -79,6 +79,7 @@ public class Budget {
 
     @Override
     public String toString() {
+        //TODO
         return "Your balance is: " + this.balance;
     }
 

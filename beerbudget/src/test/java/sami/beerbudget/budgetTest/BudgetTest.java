@@ -1,4 +1,4 @@
-package sami.beerbudget;
+package sami.beerbudget.budgetTest;
 
 
 /*
@@ -6,13 +6,15 @@ package sami.beerbudget;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import sami.beerbudget.budget.Budget;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import sami.beerbudget.budget.Budget;
 import static org.junit.Assert.*;
-import sami.logic.Date;
+import sami.beerbudget.logic.Date;
 
 /**
  *
@@ -46,7 +48,22 @@ public class BudgetTest {
         assertEquals(1, testi.getIncomes().size());
     }
     
+    @Test
     public void addsExpenseToBudget() {
+        Budget testi = new Budget();
+        testi.addExpense("vuokra", 500.0, new Date(), false);
+        assertEquals(1, testi.getExpenses().size());
+    }
+    
+    @Test
+    public void addToBalance() {
+        Budget testi = new Budget();
+        testi.addExpense("vuokra", 500.0, new Date(), false);
+        assertEquals(1, testi.getExpenses().size());
+    }
+    
+    @Test
+    public void subractToBalance() {
         Budget testi = new Budget();
         testi.addExpense("vuokra", 500.0, new Date(), false);
         assertEquals(1, testi.getExpenses().size());

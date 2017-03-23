@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sami.logic;
+package sami.beerbudget.logic;
 
 /**
  *
@@ -22,7 +22,7 @@ public class Date {
     }
 
     public void setDay(int day) {
-        if (day <= 31 && day >= 1) {
+        if (day <= 30 && day >= 1) {
             this.day = day;
         }
     }
@@ -72,21 +72,21 @@ public class Date {
         return day;
     }
 
-    public void nextDay() {
-        this.day++;
-    }
-
     public void turnDay() {
-        if (this.day > 30) {
+        if (this.day >= 30) {
             this.day = 1;
             turnMonth();
+        } else {
+            this.day++;
         }
     }
 
     public void turnMonth() {
-        if (this.month > 11) {
+        if (this.month >= 12) {
             this.month = 1;
             turnYear();
+        } else {
+            this.month++;
         }
     }
 

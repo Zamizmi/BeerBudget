@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sami.beerbudget;
+package sami.beerbudget.budget;
 
-import sami.logic.Date;
+import sami.beerbudget.logic.Date;
 
 /**
  *
@@ -65,7 +65,10 @@ public class MoneyFlow {
 
     @Override
     public String toString() {
-        return name + " : " + amount;
+        if (this.expense) {
+            return name + " will cost : " + amount;
+        }
+        return name + " will give : " + amount;
     }
 
     public boolean isExpense() {

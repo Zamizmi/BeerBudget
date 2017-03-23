@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>beerbudget</groupId>
-    <artifactId>beerbudget</artifactId>
+    <artifactId>Beerbudget</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <properties>
@@ -11,7 +10,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -20,7 +18,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -37,16 +35,30 @@
                 <version>1.1.8</version>
                 <configuration>
                     <targetClasses>
-                        <param>sami.beerbudget</param>
-                        <param>sami.logic</param>
+                        <param>sami.beerbudget.budget*</param>
+                        <param>sami.beerbudget.logic.*</param>
+                        <param>sami.beerbudget.gui.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>sami.beerbudget.*</param>
-                        <param>sami.logic.*</param>
+                        <param>sami.beerbudget.budgetTest.*</param>
+                        <param>sami.beerbudget.guiTest.*</param>
+                        <param>sami.beerbudget.logicTest.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <configuration>
+                    <configLocation>checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.5</version>
+            </plugin>
         </plugins>
     </build>
-    
 </project>

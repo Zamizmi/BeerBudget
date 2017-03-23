@@ -3,56 +3,64 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sami.logic;
+package sami.beerbudget.logic;
 
 import java.util.ArrayList;
-import sami.beerbudget.Budget;
-import sami.beerbudget.MoneyFlow;
+import sami.beerbudget.budget.Budget;
+import sami.beerbudget.budget.MoneyFlow;
 
 /**
  *
  * @author saklindq
  */
 public class BudgetLogic {
-    
+
     private Budget budget;
     private Date today;
-    
+
     public BudgetLogic() {
         this.budget = new Budget();
         this.today = new Date();
     }
-    
+
     public BudgetLogic(Budget budget, Date date) {
         this.budget = budget;
         this.today = date;
     }
-    
+
     public void setBalance(double balance) {
         this.budget.setBalance(balance);
     }
-    
+
     public void setTarget(double target) {
         this.budget.setTarget(target);
     }
-    
+
     public void setEndDate(Date date) {
         this.budget.setEnd(date);
     }
-    
+
+    public Date getEndDate() {
+        return this.budget.getEnd();
+    }
+
     public void setCurrentDate(Date currentDate) {
         this.today = currentDate;
     }
-    
-    public String currentBalance() {
-        return "" + this.budget.getBalance();
+
+    public Date getCurrentDate() {
+        return this.today;
     }
-    
+
+    public double currentBalance() {
+        return this.budget.getBalance();
+    }
+
     public void updateBalance() {
         checkIncomes();
         checkIncomes();
     }
-    
+
     public void checkIncomes() {
         for (MoneyFlow income : this.budget.getIncomes()) {
             if (income.getExpirationDate().getDay() == this.today.getDay() && income.isMonthly()) {
@@ -62,7 +70,7 @@ public class BudgetLogic {
             }
         }
     }
-    
+
     public void checkExpenses() {
         for (MoneyFlow expense : budget.getExpenses()) {
             if (expense.getExpirationDate().getDay() == this.today.getDay() && expense.isMonthly()) {
@@ -72,46 +80,46 @@ public class BudgetLogic {
             }
         }
     }
-    
+
     public void turnOneDay() {
         this.today.turnDay();
         updateBalance();
     }
-    
+
     public void turnManyDays(int days) {
         for (int i = 0; i < days; i++) {
             turnOneDay();
         }
     }
-    
+
     public void turnOneMonth() {
         this.today.turnMonth();
     }
-    
+
     public void turnManyMonths(int months) {
         for (int i = 0; i < months; i++) {
             turnOneMonth();
         }
     }
-    
+
     public void turnOneYear() {
         this.today.turnYear();
     }
-    
+
     public void turnManyYears(int years) {
         for (int i = 0; i < years; i++) {
             turnOneYear();
         }
     }
-    
+
     public ArrayList<MoneyFlow> getIncomes() {
         return this.budget.getIncomes();
     }
-    
+
     public ArrayList<MoneyFlow> getExpenses() {
         return this.budget.getExpenses();
     }
-    
+
     public double sumIncomes() {
         double sum = 0;
         for (MoneyFlow flow : this.budget.getIncomes()) {
@@ -119,7 +127,7 @@ public class BudgetLogic {
         }
         return sum;
     }
-    
+
     public double sumExpenses() {
         double sum = 0;
         for (MoneyFlow flow : this.budget.getExpenses()) {
@@ -127,15 +135,15 @@ public class BudgetLogic {
         }
         return sum;
     }
-    
+
     public void newExpense(String name, double amount, Date expiration, boolean monthly) {
         this.budget.addExpense(name, amount, expiration, monthly);
     }
-    
+
     public void newIncome(String name, double amount, Date expiration, boolean monthly) {
         this.budget.addIncome(name, amount, expiration, monthly);
     }
-    
+
     public double countBeers(double price) {
         Budget firstOfMay = this.budget;
         Date firstOfMayDate = this.today;
@@ -145,26 +153,31 @@ public class BudgetLogic {
         }
         return this.budget.getBalance() / price;
     }
-    
+
     public void countTillTheEndOfMonth() {
         //TODO
         //Counts
     }
-    
+
     public int daysToFirstOfMay() {
+        //TODO
         int days = 0;
         Date toFirstOfMay = this.today;
         System.out.println(toFirstOfMay);
-        while (toFirstOfMay.getMonth() != 5 && toFirstOfMay.getDay() != 1) {
+        while (true) {
+            if (toFirstOfMay.getDay() == 1 && toFirstOfMay.getMonth() == 5) {
+                break;
+            }
             toFirstOfMay.turnDay();
             days++;
         }
         return days;
     }
-    
+
     @Override
     public String toString() {
+        //TODo
         return "Your balance is " + this.budget.getBalance() + ". You will get " + countBeers(4.5) + " beers with this budget at the moment!";
     }
-    
+
 }
