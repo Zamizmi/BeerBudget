@@ -6,8 +6,7 @@
 package sami.beerbudget;
 
 import java.util.ArrayList;
-import java.util.Date;
-import sami.logic.BudgetLogic;
+import sami.logic.Date;
 
 /**
  *
@@ -18,20 +17,26 @@ public class Budget {
     private double target;
     private double balance;
     private Date end;
-    private ArrayList<MoneyFlow> moneyflow;
     private ArrayList<MoneyFlow> incomes;
     private ArrayList<MoneyFlow> expenses;
 
     public Budget() {
         this.target = 0;
         this.balance = 0;
-        this.moneyflow = new ArrayList<>();
         this.incomes = new ArrayList<>();
         this.expenses = new ArrayList<>();
     }
 
     public double getBalance() {
         return balance;
+    }
+
+    public void addToBalance(double amount) {
+        this.balance += amount;
+    }
+
+    public void subractFromBalance(double amount) {
+        this.balance -= amount;
     }
 
     public void setBalance(double balance) {
@@ -51,38 +56,30 @@ public class Budget {
     }
 
     public Date getEnd() {
-        return end;
-    }
-    
-    
-
-    public void addExpense(MoneyFlow expense) {
-        if (!this.expenses.contains(expense)) {
-            this.expenses.add(expense);
-        }
+        return this.end;
     }
 
-    public void addIncome(MoneyFlow income) {
-        if (!this.incomes.contains(income)) {
-            this.incomes.add(income);
-        }
+    public void addExpense(String name, double amount, Date expiration, boolean monthly) {
+        MoneyFlow expense = new MoneyFlow(name, amount, expiration, monthly, true);
+        this.expenses.add(expense);
+    }
+
+    public void addIncome(String name, double amount, Date expiration, boolean monthly) {
+        MoneyFlow income = new MoneyFlow(name, amount, expiration, monthly, false);
+        this.incomes.add(income);
     }
 
     public ArrayList<MoneyFlow> getExpenses() {
-        return expenses;
+        return this.expenses;
     }
 
     public ArrayList<MoneyFlow> getIncomes() {
-        return incomes;
-    }
-
-    public ArrayList<MoneyFlow> getMoneyflow() {
-        return moneyflow;
+        return this.incomes;
     }
 
     @Override
     public String toString() {
-        return "Your balance is: " + this.balance + " and you are " + (this.target - this.balance) + " short" + "\n";
+        return "Your balance is: " + this.balance;
     }
 
 }

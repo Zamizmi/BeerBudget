@@ -5,7 +5,7 @@
  */
 package sami.beerbudget;
 
-import java.util.Date;
+import sami.logic.Date;
 
 /**
  *
@@ -65,13 +65,11 @@ public class MoneyFlow {
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return name + " : " + amount;
     }
 
     public boolean isExpense() {
         return expense;
     }
-
-    
 
 }
