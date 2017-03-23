@@ -46,3 +46,7 @@
       - Counts how many beers user can buy with the current budget at next First of May
     - exit
       - Exits
+      
+Class Diagram for the Application
+
+![ClassDiagram](/Documentation/BeerBudget.png)
