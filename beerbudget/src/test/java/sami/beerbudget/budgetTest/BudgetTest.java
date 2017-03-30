@@ -6,7 +6,6 @@ package sami.beerbudget.budgetTest;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import sami.beerbudget.budget.Budget;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,11 +21,15 @@ import sami.beerbudget.logic.Date;
  */
 public class BudgetTest {
 
+    Budget balanceIsPositive = new Budget();
+    Budget balanceIsNegative = new Budget();
+
     public BudgetTest() {
     }
 
     @BeforeClass
     public static void setUpClass() {
+
     }
 
     @AfterClass
@@ -35,6 +38,11 @@ public class BudgetTest {
 
     @Before
     public void setUp() {
+        balanceIsPositive.addExpense("food", 500.0, new Date(), false);
+        balanceIsPositive.addIncome("rent", 500.0, new Date(), false);
+        balanceIsNegative.addExpense("rent200", 200.0, new Date(), true);
+        balanceIsNegative.addExpense("rent300", 300.0, new Date(), true);
+        balanceIsNegative.addExpense("rent400", 400.0, new Date(), true);
     }
 
     @After
@@ -43,29 +51,43 @@ public class BudgetTest {
 
     @Test
     public void addsIncomeToBudget() {
-        Budget testi = new Budget();
-        testi.addIncome("vuokra", 500.0, new Date(), false);
-        assertEquals(1, testi.getIncomes().size());
+        //Budget balanceIsPositive = new Budget();
+        balanceIsPositive.addIncome("salary", 500.0, new Date(), false);
+        assertEquals(2, balanceIsPositive.getIncomes().size());
     }
-    
+
     @Test
     public void addsExpenseToBudget() {
-        Budget testi = new Budget();
-        testi.addExpense("vuokra", 500.0, new Date(), false);
-        assertEquals(1, testi.getExpenses().size());
+        balanceIsPositive.addExpense("food2", 500.0, new Date(), false);
+        assertEquals(2, balanceIsPositive.getExpenses().size());
     }
-    
+
     @Test
     public void addToBalance() {
-        Budget testi = new Budget();
-        testi.addExpense("vuokra", 500.0, new Date(), false);
-        assertEquals(1, testi.getExpenses().size());
+        balanceIsPositive.addToBalance(500.0);
+        assertEquals(500, balanceIsPositive.getBalance(), .0);
     }
-    
+
     @Test
     public void subractToBalance() {
-        Budget testi = new Budget();
-        testi.addExpense("vuokra", 500.0, new Date(), false);
-        assertEquals(1, testi.getExpenses().size());
+        balanceIsPositive.subractFromBalance(500.0);
+        assertEquals(-500.0, balanceIsPositive.getBalance(), 1);
+    }
+
+    @Test
+    public void toStringWorks() {
+        balanceIsPositive.setBalance(500.0);
+        balanceIsPositive.setTarget(400.0);
+        assertEquals("Your target is: 400.0" + "\n" + "Your Current Balance is: 500.0", balanceIsPositive.toString());
+    }
+
+    @Test
+    public void expirationDateIsCorrect() {
+        Date newYear = new Date();
+        newYear.setDay(1);
+        newYear.setMonth(1);
+        newYear.setYear(2020);
+        balanceIsPositive.setEnd(newYear);
+        assertEquals(newYear, balanceIsPositive.getEnd());
     }
 }

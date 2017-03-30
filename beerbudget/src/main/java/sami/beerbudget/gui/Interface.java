@@ -47,7 +47,6 @@ public class Interface {
         System.out.println("expenses - Prints all added expenses");
         System.out.println("target - Prints current target and how long you will have save for it at current budget");
         System.out.println("First of May -  Prints the number of beers you will get at the next First of May!");
-        //System.out.println("TODO");
     }
 
     public void commands() {
@@ -75,15 +74,13 @@ public class Interface {
                 break;
             } else {
                 System.out.println("Command was invalid!");
-                //commands();
             }
         }
     }
 
     public void currentBalance() {
-        //TODO
-        // logic.countTillTheEndOfMonth();
-        System.out.println("You have " + logic.currentBalance() + " left for current month.");
+        System.out.println("You have " + logic.currentBalance() + " left for current month." + "\n" + 
+                "Your balance will be " + logic.balanceAtTheEndOfMonth() + "at the end of the month");
     }
 
     public void currentBudget() {
@@ -113,7 +110,7 @@ public class Interface {
     }
 
     public void firstOfMay() {
-        System.out.println(logic.daysToFirstOfMay());
+        System.out.println(logic.toFirstOfMay());
         System.out.println("You will get " + logic.countBeers(1.0) + " beers at First of May!");
 
     }

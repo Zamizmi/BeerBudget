@@ -18,10 +18,10 @@
         <module name='RightCurly' />
         <module name='AvoidNestedBlocks' />
         <module name="NestedIfDepth">
-            <property name="max" value="2"/>
+            <property name="max" value="3"/>
         </module>
         <module name="NestedForDepth">
-            <property name="max" value="2"/>
+            <property name="max" value="3"/>
         </module>
         <module name="NestedTryDepth"/>
 
@@ -77,7 +77,7 @@
     <!-- File Length -->
 
     <module name='FileLength'>
-        <property name='max' value='200' />
+        <property name='max' value='250' />
     </module>
 
 </module>

@@ -16,10 +16,12 @@ import sami.beerbudget.budget.MoneyFlow;
 public class BudgetLogic {
 
     private Budget budget;
+    private DateLogic dateLogic;
     private Date today;
 
     public BudgetLogic() {
         this.budget = new Budget();
+        this.dateLogic = new DateLogic();
         this.today = new Date();
     }
 
@@ -34,6 +36,25 @@ public class BudgetLogic {
 
     public void setTarget(double target) {
         this.budget.setTarget(target);
+    }
+
+    public double getTarget() {
+        return this.budget.getTarget();
+    }
+
+    public String daysToTarget() {
+        Date toTarget = this.today;
+        Budget targetBudget = this.budget;
+        BudgetLogic targetLogic = new BudgetLogic(targetBudget, toTarget);
+        int daysToGo = 0;
+        while (targetLogic.currentBalance() <= this.getTarget()) {
+            targetLogic.turnOneDay();
+            daysToGo++;
+            if (daysToGo > 18263) {
+                return "With the current budget, it seems you'll never reach your target, at least not in 50 years.";
+            }
+        }
+        return "With the current budget it will take " + daysToGo + " days to reach the target.";
     }
 
     public void setEndDate(Date date) {
@@ -58,7 +79,7 @@ public class BudgetLogic {
 
     public void updateBalance() {
         checkIncomes();
-        checkIncomes();
+        checkExpenses();
     }
 
     public void checkIncomes() {
@@ -92,20 +113,25 @@ public class BudgetLogic {
         }
     }
 
-    public void turnOneMonth() {
-        this.today.turnMonth();
-    }
-
-    public void turnManyMonths(int months) {
-        for (int i = 0; i < months; i++) {
-            turnOneMonth();
+    public void turnToNextMonth() {
+        int targetMonth = today.getMonth();
+        if (targetMonth == 12) {
+            targetMonth = 1;
+        } else {
+            targetMonth++;
+        }
+        while (today.getMonth() != targetMonth) {
+            this.today.turnDay();
         }
     }
 
     public void turnOneYear() {
-        this.today.turnYear();
+        for (int i = 0; i < 12; i++) {
+            this.today.turnMonth();
+        }
     }
 
+    //doesnt work yet
     public void turnManyYears(int years) {
         for (int i = 0; i < years; i++) {
             turnOneYear();
@@ -148,36 +174,36 @@ public class BudgetLogic {
         Budget firstOfMay = this.budget;
         Date firstOfMayDate = this.today;
         BudgetLogic firstOfMayLogic = new BudgetLogic(firstOfMay, firstOfMayDate);
-        if (firstOfMayDate.getDay() != 01 && firstOfMayDate.getMonth() != 05) {
+        while (firstOfMayDate.getDay() != 1 || firstOfMayDate.getMonth() != 5) {
             firstOfMayLogic.turnOneDay();
         }
-        return this.budget.getBalance() / price;
+        return firstOfMayLogic.currentBalance() / price;
     }
 
-    public void countTillTheEndOfMonth() {
-        //TODO
-        //Counts
+    public void updateToNextMonth() {
+        turnManyDays(dateLogic.daysToNextMonth(today));
     }
 
-    public int daysToFirstOfMay() {
+    public int daysToNextMonth(Date dateTo) {
+        return this.dateLogic.daysToNextMonth(dateTo);
+    }
+
+    public double balanceAtTheEndOfMonth() {
+        Budget atTheEnd = this.budget;
+        Date iteratorDate = this.today;
+        BudgetLogic atTheEndLogic = new BudgetLogic(atTheEnd, iteratorDate);
+        atTheEndLogic.turnManyDays(daysToNextMonth(iteratorDate));
+
+        return atTheEndLogic.currentBalance();
+    }
+
+    public String toFirstOfMay() {
         //TODO
-        int days = 0;
-        Date toFirstOfMay = this.today;
-        System.out.println(toFirstOfMay);
-        while (true) {
-            if (toFirstOfMay.getDay() == 1 && toFirstOfMay.getMonth() == 5) {
-                break;
-            }
-            toFirstOfMay.turnDay();
-            days++;
-        }
-        return days;
+        return "12";
     }
 
     @Override
     public String toString() {
-        //TODo
-        return "Your balance is " + this.budget.getBalance() + ". You will get " + countBeers(4.5) + " beers with this budget at the moment!";
+        return "Your balance is " + this.budget.getBalance() + ". You will get " + countBeers(4.0) + " beers with this budget at next First of May!";
     }
-
 }

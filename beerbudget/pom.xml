@@ -37,11 +37,9 @@
                     <targetClasses>
                         <param>sami.beerbudget.budget*</param>
                         <param>sami.beerbudget.logic.*</param>
-                        <param>sami.beerbudget.gui.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>sami.beerbudget.budgetTest.*</param>
-                        <param>sami.beerbudget.guiTest.*</param>
                         <param>sami.beerbudget.logicTest.*</param>
                     </targetTests>
                 </configuration>

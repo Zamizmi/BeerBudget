@@ -5,7 +5,6 @@ package sami.beerbudget.budgetTest;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import sami.beerbudget.budget.MoneyFlow;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +19,10 @@ import sami.beerbudget.logic.Date;
  * @author saklindq
  */
 public class MoneyFlowTest {
+
+    Date newYear = new Date();
+    MoneyFlow rentExpense = new MoneyFlow("rent", 500.0, newYear, false, true);
+    MoneyFlow salaryIncome = new MoneyFlow("salary", 1500.0, newYear, false, false);
 
     public MoneyFlowTest() {
     }
@@ -54,7 +57,38 @@ public class MoneyFlowTest {
         assertEquals("expense will cost : 100.0", expense.toString());
     }
 
-    // TODO add test methods here.
+    @Test
+    public void setsAndGetsAmount() {
+        salaryIncome.setAmount(8000);
+        assertEquals(8000.0, salaryIncome.getAmount(), 0);
+    }
+
+    @Test
+    public void setsIncomeToExpense() {
+        salaryIncome.setExpense(true);
+        assertEquals(true, salaryIncome.isExpense());
+    }
+
+    @Test
+    public void setsAndGetsExpiration() {
+        Date old = new Date();
+        old.setYear(1888);
+        salaryIncome.setExpirationDate(old);
+        assertEquals(old, salaryIncome.getExpirationDate());
+    }
+
+    @Test
+    public void setsAndGetsName() {
+        salaryIncome.setName("The Best Name Ever");
+        assertEquals("The Best Name Ever", salaryIncome.getName());
+    }
+
+    @Test
+    public void setsAndGetsMonthly() {
+        salaryIncome.setMonthly(true);
+        assertEquals(true, salaryIncome.isMonthly());
+    }
+
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test

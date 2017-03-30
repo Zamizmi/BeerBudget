@@ -79,8 +79,8 @@ public class Budget {
 
     @Override
     public String toString() {
-        //TODO
-        return "Your balance is: " + this.balance;
+        return "Your target is: " + this.target + "\n"
+                + "Your Current Balance is: " + this.balance;
     }
 
 }

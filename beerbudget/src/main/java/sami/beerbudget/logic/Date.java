@@ -22,7 +22,7 @@ public class Date {
     }
 
     public void setDay(int day) {
-        if (day <= 30 && day >= 1) {
+        if (day <= monthLength() && day >= 1) {
             this.day = day;
         }
     }
@@ -37,27 +37,21 @@ public class Date {
         this.year = year;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 47 * hash + this.day;
-        hash = 47 * hash + this.month;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+    public int monthLength() {
+        if (this.month == 1 | this.month == 3 | this.month == 5 | this.month == 7 | this.month == 8 | this.month == 10 | this.month == 12) {
+            return 31;
+        } else if (this.month == 2) {
+            if (this.year % 4 == 0) {
+                if (this.year % 100 == 0) {
+                    if (this.year % 400 == 0) {
+                        return 29;
+                    }
+                    return 28;
+                }
+            }
+            return 28;
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Date other = (Date) obj;
-        return this.day == other.day;
+        return 30;
     }
 
     public int getYear() {
@@ -73,7 +67,7 @@ public class Date {
     }
 
     public void turnDay() {
-        if (this.day >= 30) {
+        if (this.day >= monthLength()) {
             this.day = 1;
             turnMonth();
         } else {
