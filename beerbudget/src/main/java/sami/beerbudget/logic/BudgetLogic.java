@@ -16,12 +16,10 @@ import sami.beerbudget.budget.MoneyFlow;
 public class BudgetLogic {
 
     private Budget budget;
-    private DateLogic dateLogic;
     private Date today;
 
     public BudgetLogic() {
         this.budget = new Budget();
-        this.dateLogic = new DateLogic();
         this.today = new Date();
     }
 
@@ -114,15 +112,11 @@ public class BudgetLogic {
     }
 
     public void turnToNextMonth() {
-        int targetMonth = today.getMonth();
-        if (targetMonth == 12) {
-            targetMonth = 1;
-        } else {
-            targetMonth++;
-        }
-        while (today.getMonth() != targetMonth) {
-            this.today.turnDay();
-        }
+        turnManyDays(DateLogic.daysToNextMonth(this.today));
+    }
+
+    public void turnToNextYear() {
+        turnManyDays(DateLogic.daysToNextYear(this.today));
     }
 
     public void turnOneYear() {
@@ -131,7 +125,6 @@ public class BudgetLogic {
         }
     }
 
-    //doesnt work yet
     public void turnManyYears(int years) {
         for (int i = 0; i < years; i++) {
             turnOneYear();
@@ -181,16 +174,16 @@ public class BudgetLogic {
     }
 
     public void updateToNextMonth() {
-        turnManyDays(dateLogic.daysToNextMonth(today));
+        turnManyDays(DateLogic.daysToNextMonth(today));
     }
 
     public int daysToNextMonth(Date dateTo) {
-        return this.dateLogic.daysToNextMonth(dateTo);
+        return DateLogic.daysToNextMonth(dateTo);
     }
 
     public double balanceAtTheEndOfMonth() {
         Budget atTheEnd = this.budget;
-        Date iteratorDate = this.today;
+        Date iteratorDate = DateLogic.iteratorDate(today);
         BudgetLogic atTheEndLogic = new BudgetLogic(atTheEnd, iteratorDate);
         atTheEndLogic.turnManyDays(daysToNextMonth(iteratorDate));
 

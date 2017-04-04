@@ -21,24 +21,24 @@ import sami.beerbudget.logic.DateLogic;
  * @author saklindq
  */
 public class BudgetLogicTest {
-
+    
     Budget budget;
     BudgetLogic bl;
     DateLogic dl;
-
+    
     public BudgetLogicTest() {
-
+        
     }
-
+    
     @BeforeClass
     public static void setUpClass() {
     }
-
+    
     @AfterClass
     public static void tearDownClass() {
-
+        
     }
-
+    
     @Before
     public void setUp() {
         budget = new Budget();
@@ -46,23 +46,23 @@ public class BudgetLogicTest {
         budget.setTarget(500);
         bl = new BudgetLogic(budget, new Date());
     }
-
+    
     @After
     public void tearDown() {
     }
-
+    
     @Test
     public void blSetsBalance() {
         bl.setBalance(500);
         assertEquals(500, budget.getBalance(), 1);
     }
-
+    
     @Test
     public void blSetsTarget() {
         bl.setTarget(5000);
         assertEquals(5000, budget.getTarget(), 1);
     }
-
+    
     @Test
     public void blSetsDate() {
         Date lastChristmas = new Date();
@@ -71,19 +71,19 @@ public class BudgetLogicTest {
         bl.setEndDate(lastChristmas);
         assertEquals("25.12.2017", bl.getEndDate().toString());
     }
-
+    
     @Test
     public void blCheckIncomes() {
         bl.newIncome("name", 100, new Date(), true);
         assertEquals(1, bl.getIncomes().size());
     }
-
+    
     @Test
     public void blCheckExpenses() {
         bl.newExpense("name", 100, new Date(), true);
         assertEquals(1, bl.getExpenses().size());
     }
-
+    
     @Test
     public void blTurnsDay() {
         bl.turnOneDay();
@@ -91,16 +91,18 @@ public class BudgetLogicTest {
         secondDay.turnDay();
         assertEquals(secondDay.toString(), bl.getCurrentDate().toString());
     }
-
+    
     @Test
     public void blTurnsMonth() {
+        bl.setCurrentDate(new Date());
         bl.turnToNextMonth();
         Date febFirst = new Date();
-        febFirst.turnMonth();
+        febFirst.setDay(1);
+        febFirst.setMonth(2);
         assertEquals(febFirst.toString(), bl.getCurrentDate().toString());
         //TODO
     }
-
+    
     @Test
     public void blTurnsYear() {
         bl.turnOneYear();
@@ -108,7 +110,7 @@ public class BudgetLogicTest {
         first2018.turnYear();
         assertEquals(first2018.toString(), bl.getCurrentDate().toString());
     }
-
+    
     @Test
     public void blSumsIncomes() {
         bl.newIncome("rent 100", 100, new Date(), true);
@@ -116,7 +118,7 @@ public class BudgetLogicTest {
         bl.newIncome("rent 300", 300, new Date(), true);
         assertEquals(600.0, bl.sumIncomes(), 0);
     }
-
+    
     @Test
     public void blSumsExpenses() {
         bl.newExpense("rent 100", 100, new Date(), true);
@@ -124,13 +126,13 @@ public class BudgetLogicTest {
         bl.newExpense("rent 300", 300, new Date(), true);
         assertEquals(600.0, bl.sumExpenses(), 0);
     }
-
+    
     @Test
     public void blCountsBeersCorrectlyWithNoExpensesOrIncomes() {
         bl.setBalance(1000);
         assertEquals(500, bl.countBeers(2.0), 0);
     }
-
+    
     @Test
     public void blCountsBeersCorrectlyWithNoExpensesAndSingleIncome() {
         bl.setBalance(1000);
@@ -139,7 +141,7 @@ public class BudgetLogicTest {
         bl.newIncome("200", 200, febFirst, false);
         assertEquals(600, bl.countBeers(2.0), 0);
     }
-
+    
     @Test
     public void blCountsBeersCorrectlyWithNoExpensesAndMonthlyIncome() {
         bl.setBalance(1000);
@@ -149,7 +151,7 @@ public class BudgetLogicTest {
         bl.newIncome("200", 200, janSecond, true);
         assertEquals(900, bl.countBeers(2.0), 0);
     }
-
+    
     @Test
     public void blCountsBeersCorrectlyWithNoIncomesAndSingleMonthlyExpense() {
         bl.setBalance(1000);
@@ -158,7 +160,7 @@ public class BudgetLogicTest {
         bl.newExpense("200", 200, febFirst, true);
         assertEquals(100, bl.countBeers(2.0), 0);
     }
-
+    
     @Test
     public void blCountsBeersCorrectlyWithNoIncomesAndSingleExpense() {
         bl.setBalance(1000);
@@ -167,12 +169,12 @@ public class BudgetLogicTest {
         bl.newExpense("200", 200, febFirst, false);
         assertEquals(400, bl.countBeers(2.0), 0);
     }
-
+    
     @Test
     public void blCountsDaysToFirstOfMayCorrect() {
         bl.toFirstOfMay();
     }
-
+    
     @Test
     public void toStringWorks() {
         bl.newIncome("100", 100, new Date(), true);
@@ -180,19 +182,19 @@ public class BudgetLogicTest {
         System.out.println(bl.toString());
         assertEquals("Your balance is 600.0. You will get 150.0 beers with this budget at next First of May!", bl.toString());
     }
-
+    
     @Test
     public void getAndSetBalance() {
         bl.setBalance(5000);
         assertEquals(5000.0, bl.currentBalance(), 0);
     }
-
+    
     @Test
     public void getAndSetTarget() {
         bl.setTarget(1000);
         assertEquals(1000.0, bl.getTarget(), 0);
     }
-
+    
     @Test
     public void getAndSetCurrentDate() {
         Date wanted = new Date();
@@ -202,7 +204,7 @@ public class BudgetLogicTest {
         bl.setCurrentDate(wanted);
         assertEquals(wanted, bl.getCurrentDate());
     }
-
+    
     @Test
     public void turn60Days() {
         Date after60 = new Date();
@@ -211,19 +213,19 @@ public class BudgetLogicTest {
         bl.turnManyDays(60);
         assertEquals(after60.toString(), bl.getCurrentDate().toString());
     }
-
+    
     @Test
     public void createsNewBudgetLogic() {
         assertEquals(new BudgetLogic().toString(), new BudgetLogic().toString());
     }
-
+    
     @Test
     public void reachTarget() {
         bl.setTarget(2000);
         bl.newIncome("200", 200.0, new Date(), true);
         assertEquals("With the current budget it will take 304 days to reach the target.", bl.daysToTarget());
     }
-
+    
     @Test
     public void neverReachTarget() {
         bl.setTarget(2000);

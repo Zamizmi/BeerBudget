@@ -15,21 +15,33 @@ public class DateLogic {
 
     }
 
-    public int daysToNextMonth(Date date) {
-        int startMonth = date.getMonth();
+    public static int daysToNextMonth(Date date) {
+        Date iterator = iteratorDate(date);
+        int startMonth = iterator.getMonth();
         int toReturn = 0;
-        while (date.getMonth() == startMonth) {
-            date.turnDay();
+        while (iterator.getMonth() == startMonth) {
+            iterator.turnDay();
             toReturn++;
         }
         return toReturn;
     }
 
-    public int daysToNextFirstOfMay(Date date) {
+    public static int daysToNextYear(Date date) {
+        Date iterator = iteratorDate(date);
+        int startYear = iterator.getYear();
+        int toReturn = 0;
+        while (iterator.getYear() == startYear) {
+            iterator.turnDay();
+            toReturn++;
+        }
+        return toReturn;
+    }
+
+    public static int daysToNextFirstOfMay(Date date) {
         if (date.getDay() == 1 && date.getMonth() == 5) {
             return 0;
         }
-        Date iteratorDate = date;
+        Date iteratorDate = iteratorDate(date);
         int toReturn = 0;
         int startYear = iteratorDate.getYear();
         if (iteratorDate.getMonth() >= 5) {
@@ -43,6 +55,26 @@ public class DateLogic {
             iteratorDate.turnDay();
             toReturn++;
         }
+        return toReturn;
+    }
+
+    public static Date iteratorDate(Date date) {
+        Date iteratorDate = new Date();
+        iteratorDate.setDay(date.getDay());
+        iteratorDate.setMonth(date.getMonth());
+        iteratorDate.setYear(date.getYear());
+        return iteratorDate;
+    }
+
+    public static Date stringToDate(String dateString) {
+        String[] split = dateString.split("-");
+        int day = Integer.parseInt(split[0]);
+        int month = Integer.parseInt(split[1]);
+        int year = Integer.parseInt(split[2]);
+        Date toReturn = new Date();
+        toReturn.setDay(day);
+        toReturn.setMonth(month);
+        toReturn.setYear(year);
         return toReturn;
     }
 

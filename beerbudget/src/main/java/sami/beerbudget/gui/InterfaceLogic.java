@@ -9,17 +9,18 @@ import java.util.Scanner;
 import sami.beerbudget.budget.MoneyFlow;
 import sami.beerbudget.logic.BudgetLogic;
 import sami.beerbudget.logic.Date;
+import sami.beerbudget.logic.DateLogic;
 
 /**
  *
  * @author saklindq
  */
-public class Interface {
+public class InterfaceLogic {
 
     private BudgetLogic logic;
     private Scanner reader;
 
-    public Interface() {
+    public InterfaceLogic() {
         this.logic = new BudgetLogic();
         this.reader = new Scanner(System.in);
 
@@ -79,8 +80,8 @@ public class Interface {
     }
 
     public void currentBalance() {
-        System.out.println("You have " + logic.currentBalance() + " left for current month." + "\n" + 
-                "Your balance will be " + logic.balanceAtTheEndOfMonth() + "at the end of the month");
+        System.out.println("You have " + logic.currentBalance() + " left for current month." + "\n"
+                + "Your balance will be " + logic.balanceAtTheEndOfMonth() + "at the end of the month");
     }
 
     public void currentBudget() {
@@ -182,14 +183,6 @@ public class Interface {
     public Date askForDate() {
         System.out.println("Give the date (dd-mm-yyyy)");
         String date = reader.nextLine();
-        String[] split = date.split("-");
-        int day = Integer.parseInt(split[0]);
-        int month = Integer.parseInt(split[1]);
-        int year = Integer.parseInt(split[2]);
-        Date toReturn = new Date();
-        toReturn.setDay(day);
-        toReturn.setMonth(month);
-        toReturn.setYear(year);
-        return toReturn;
+        return DateLogic.stringToDate(date);
     }
 }

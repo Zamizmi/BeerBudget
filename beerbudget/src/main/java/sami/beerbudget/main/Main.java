@@ -1,7 +1,8 @@
 package sami.beerbudget.main;
 
-
-import sami.beerbudget.gui.Interface;
+import javax.swing.*;
+import sami.beerbudget.gui.GUI;
+import sami.beerbudget.gui.InterfaceLogic;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +16,9 @@ import sami.beerbudget.gui.Interface;
 public class Main {
 
     public static void main(String[] args) {
-        Interface alku = new Interface();
+        GUI ui = new GUI();
+        SwingUtilities.invokeLater(ui);
+        InterfaceLogic alku = new InterfaceLogic();
         alku.run();
     }
 
