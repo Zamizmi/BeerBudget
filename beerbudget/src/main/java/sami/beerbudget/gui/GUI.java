@@ -19,7 +19,7 @@ public class GUI implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Title");
-        frame.setPreferredSize(new Dimension(200, 100));
+        frame.setPreferredSize(new Dimension(600, 400));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -30,13 +30,26 @@ public class GUI implements Runnable {
     }
 
     private void createComponents(Container container) {
-        container.add(new JButton("North"), BorderLayout.NORTH);
-        container.add(new JButton("East"), BorderLayout.EAST);
-        container.add(new JButton("South"), BorderLayout.SOUTH);
-        container.add(new JButton("West"), BorderLayout.WEST);
-        container.add(new JButton("Center"), BorderLayout.CENTER);
+        GridLayout layout = new GridLayout(4, 3);
+        container.setLayout(layout);
 
-        container.add(new JButton("Default (Center)"));
+        JButton moneyflow = new JButton("Add!");
+        JButton incomes = new JButton("Add!");
+        JButton expenses = new JButton("Add!");
+        JButton balance = new JButton("Add!");
+        JButton target = new JButton("Add!");
+        JButton addButton = new JButton("Add!");
+        JButton firstOfMay = new JButton("Add!");
+        JTextField printer = new JTextField();
+        // event listener
+
+        container.add(moneyflow);
+        container.add(incomes);
+        container.add(expenses);
+        container.add(balance);
+        container.add(target);
+        container.add(firstOfMay);
+        container.add(printer);
     }
 
     public JFrame getFrame() {

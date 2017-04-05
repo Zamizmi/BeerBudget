@@ -37,6 +37,12 @@ public class Date {
         this.year = year;
     }
 
+    /**
+     * Returns the length of the current month. Calculates every months length
+     * individually. Therefore looks a bit horrific.
+     *
+     * @return integer of the length of the month.
+     */
     public int monthLength() {
         if (this.month == 1 | this.month == 3 | this.month == 5 | this.month == 7 | this.month == 8 | this.month == 10 | this.month == 12) {
             return 31;
@@ -66,6 +72,9 @@ public class Date {
         return day;
     }
 
+    /**
+     * Turns day by one and checks if month/year needs turning.
+     */
     public void turnDay() {
         if (this.day >= monthLength()) {
             this.day = 1;
@@ -75,6 +84,9 @@ public class Date {
         }
     }
 
+    /**
+     * Turns month by one and checks if year needs turning.
+     */
     public void turnMonth() {
         if (this.month >= 12) {
             this.month = 1;
@@ -88,6 +100,11 @@ public class Date {
         this.year++;
     }
 
+    /**
+     * Gives dd.mm.yyyy presentation of the date.
+     *
+     * @return String dd.mm.yyyy
+     */
     @Override
     public String toString() {
         return this.day + "." + this.month + "." + this.year;

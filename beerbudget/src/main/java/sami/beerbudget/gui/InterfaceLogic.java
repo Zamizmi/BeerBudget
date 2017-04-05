@@ -26,6 +26,10 @@ public class InterfaceLogic {
 
     }
 
+    /**
+     * Is the first method to run from the main-class. Is a text-based User
+     * Interface.
+     */
     public void run() {
         System.out.println("Welcome to the Beer Budget!");
         System.out.println("Please start by telling your current balance");
@@ -39,6 +43,11 @@ public class InterfaceLogic {
         commands();
     }
 
+    /**
+     *
+     * Prints all the commands available for the text-based UI.
+     *
+     */
     public void listCommands() {
         System.out.println("list - Prints all the commands");
         System.out.println("moneyflow - Add new expense or income");
@@ -50,6 +59,12 @@ public class InterfaceLogic {
         System.out.println("First of May -  Prints the number of beers you will get at the next First of May!");
     }
 
+    /**
+     *
+     * Is running while app is running in text-based. Asks for input and calls
+     * the right methods after receiving commands.
+     *
+     */
     public void commands() {
         while (true) {
             System.out.println("Please give one of the commands to proceed.");
@@ -79,15 +94,25 @@ public class InterfaceLogic {
         }
     }
 
+    /**
+     * Prints the current balance and the amount User will have at the end of
+     * the month according the budget.
+     */
     public void currentBalance() {
         System.out.println("You have " + logic.currentBalance() + " left for current month." + "\n"
                 + "Your balance will be " + logic.balanceAtTheEndOfMonth() + "at the end of the month");
     }
 
+    /**
+     * Prints info of the budget.
+     */
     public void currentBudget() {
         System.out.println("todo");
     }
 
+    /**
+     * Prints all incomes and the total sum they'll produce for the month.
+     */
     public void listIncomes() {
         System.out.println("Incomes: " + this.logic.getIncomes().size());
 
@@ -97,6 +122,10 @@ public class InterfaceLogic {
         System.out.println(" This will total in " + logic.sumIncomes() + " for this month");
     }
 
+    /**
+     * Prints all expenses and the total cost they'll produce for the current
+     * month.
+     */
     public void listExpenses() {
         System.out.println("Expenses: " + this.logic.getExpenses().size());
         for (MoneyFlow expense : this.logic.getExpenses()) {
@@ -105,17 +134,28 @@ public class InterfaceLogic {
         System.out.println(" This will total in " + this.logic.sumExpenses() + " for this month");
     }
 
+    /**
+     * Prints the amount of days needed to fulfil the target. If the budget
+     * can't accomplish the target in 50 years, it will tell it.
+     */
     public void printTarget() {
-        //TODO
-        System.out.println("According to the budget you wish to save a lot of money");
+        System.out.println(logic.daysToTarget());
     }
 
+    /**
+     * Prints TODO. Also prints the amount of beers User can buy at the next
+     * First Of May.
+     */
     public void firstOfMay() {
         System.out.println(logic.toFirstOfMay());
         System.out.println("You will get " + logic.countBeers(1.0) + " beers at First of May!");
 
     }
 
+    /**
+     * Asks for input and user creates new moneyflow. The new Moneyflow is added
+     * to the budget automatically.
+     */
     public void askForMoneyFlow() {
         while (true) {
             System.out.println("Write 'i' for new Income, 'e' for new expense, exit to stop");
@@ -132,6 +172,9 @@ public class InterfaceLogic {
         }
     }
 
+    /**
+     * Asks for input from the User to create expense.
+     */
     public void newExpense() {
         System.out.println("Give a name for the expense");
         String name = reader.nextLine();
@@ -156,6 +199,10 @@ public class InterfaceLogic {
         this.logic.newExpense(name, amount, new Date(), monthly);
     }
 
+    /**
+     * Asks for input from the User to create new income. Asks correct input
+     * until method receives one.
+     */
     public void newIncome() {
         System.out.println("Give a name for the income");
         String name = reader.nextLine();
@@ -163,7 +210,7 @@ public class InterfaceLogic {
         double amount = Double.parseDouble(reader.nextLine());
         boolean monthly = false;
         while (true) {
-            System.out.println("Will it be monthly(m) or once(o)?");
+            System.out.println("Will it be (m)onthly or (o)nce?");
             String decision = reader.nextLine();
             if (decision.equals("m")) {
                 monthly = true;
@@ -172,14 +219,17 @@ public class InterfaceLogic {
                 monthly = false;
                 break;
             } else {
-                System.out.println("You chose income to be paid once");
-                break;
+                System.out.println("Input is invalid, try again!");
             }
         }
         Date expiration = askForDate();
         this.logic.newIncome(name, amount, expiration, monthly);
     }
 
+    /**
+     *
+     * @return Date from User input.
+     */
     public Date askForDate() {
         System.out.println("Give the date (dd-mm-yyyy)");
         String date = reader.nextLine();
