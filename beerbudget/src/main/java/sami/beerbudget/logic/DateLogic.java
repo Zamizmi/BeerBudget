@@ -11,17 +11,6 @@ package sami.beerbudget.logic;
  */
 public class DateLogic {
 
-    //TODO
-    /**
-     * Returns length of the given year at the date.
-     *
-     * @param date which years length is wanted.
-     * @return integer the length of the year.
-     */
-    public static int DaysInYear(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public DateLogic() {
 
     }
@@ -43,6 +32,23 @@ public class DateLogic {
             toReturn++;
         }
         return toReturn;
+    }
+
+    /**
+     * Returns the length of the year. Considers leap years accordingly.
+     *
+     * @param date what year is wanted to be checked.
+     * @return integer, number of days in a year.
+     */
+    public static int daysInYear(Date date) {
+        int length = 0;
+        Date iteratorDate = iteratorDate(date);
+        iteratorDate.setMonth(1);
+        for (int i = 0; i < 12; i++) {
+            length += iteratorDate.monthLength();
+            iteratorDate.turnMonth();
+        }
+        return length;
     }
 
     /**

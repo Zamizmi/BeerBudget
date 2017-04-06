@@ -223,7 +223,7 @@ public class BudgetLogic {
      * Calls turnOneDay until one year has passed.
      */
     public void turnOneYear() {
-        int daysToGo = DateLogic.DaysInYear(this.today);
+        int daysToGo = DateLogic.daysInYear(this.today);
         for (int i = 0; i < daysToGo; i++) {
             turnOneDay();
         }

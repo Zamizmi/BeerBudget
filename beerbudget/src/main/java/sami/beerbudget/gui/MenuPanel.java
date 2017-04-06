@@ -21,6 +21,10 @@ public class MenuPanel extends JPanel implements ActionListener {
         createComponents();
     }
 
+    //TODO
+    /**
+     * WIP. When ready, creates buttons in JPanel.
+     */
     private void createComponents() {
         //Asks for new moneyflow
         JButton moneyFlowButton = new JButton("Moneyflow");
@@ -51,7 +55,13 @@ public class MenuPanel extends JPanel implements ActionListener {
         firstOfMayButton.addActionListener(this);
         add(firstOfMayButton);
     }
-
+    
+    //TODO
+    /**
+     * When active, creates magic.
+     *
+     * @param e cool stuff. The best stuff.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

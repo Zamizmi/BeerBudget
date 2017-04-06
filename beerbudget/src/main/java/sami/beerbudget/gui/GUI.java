@@ -29,6 +29,11 @@ public class GUI implements Runnable {
         frame.setVisible(true);
     }
 
+    /**
+     * Creates components.
+     *
+     * @param container The Place where these components are wanted.
+     */
     private void createComponents(Container container) {
         GridLayout layout = new GridLayout(4, 3);
         container.setLayout(layout);

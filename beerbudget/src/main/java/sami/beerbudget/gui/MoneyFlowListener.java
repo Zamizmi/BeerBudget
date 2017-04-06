@@ -38,7 +38,12 @@ public class MoneyFlowListener implements ActionListener {
         this.monthly = monthly;
         this.expense = expense;
     }
-
+    
+    //TODO
+    /**
+     * When activated, creates new moneyflow.
+     * @param ae activation.
+     */
     @Override
     public void actionPerformed(ActionEvent ae) {
         String command = ae.getActionCommand();

@@ -20,7 +20,6 @@ import sami.beerbudget.logic.DateLogic;
  */
 public class DateLogicTest {
 
-    DateLogic dlt = new DateLogic();
     Date fom = new Date();
     Date threeDaysBeforeFOM = new Date();
 
@@ -51,7 +50,7 @@ public class DateLogicTest {
 
     @Test
     public void daysToFirstOfMay() {
-        assertEquals(3, dlt.daysToNextFirstOfMay(threeDaysBeforeFOM));
+        assertEquals(3, DateLogic.daysToNextFirstOfMay(threeDaysBeforeFOM));
     }
 
     @Test
@@ -59,18 +58,18 @@ public class DateLogicTest {
         fom.setDay(2);
         fom.setMonth(5);
         fom.setYear(2017);
-        assertEquals(364, dlt.daysToNextFirstOfMay(fom));
+        assertEquals(364, DateLogic.daysToNextFirstOfMay(fom));
     }
 
     @Test
     public void daysFrom1stOfMay() {
-        assertEquals(0, dlt.daysToNextFirstOfMay(fom));
+        assertEquals(0, DateLogic.daysToNextFirstOfMay(fom));
     }
 
     @Test
     public void daysFromNewYear() {
         Date newYear = new Date();
-        assertEquals(120, dlt.daysToNextFirstOfMay(newYear));
+        assertEquals(120, DateLogic.daysToNextFirstOfMay(newYear));
     }
 
     @Test
@@ -79,13 +78,13 @@ public class DateLogicTest {
         independenceDay.setDay(6);
         independenceDay.setMonth(12);
 
-        assertEquals(146, dlt.daysToNextFirstOfMay(independenceDay));
+        assertEquals(146, DateLogic.daysToNextFirstOfMay(independenceDay));
     }
 
     @Test
     public void daysToFebFromNewYear() {
         Date newYear = new Date();
-        assertEquals(31, dlt.daysToNextMonth(newYear));
+        assertEquals(31, DateLogic.daysToNextMonth(newYear));
     }
 
     @Test
@@ -94,10 +93,61 @@ public class DateLogicTest {
         independenceDay.setDay(6);
         independenceDay.setMonth(12);
 
-        assertEquals(26, dlt.daysToNextMonth(independenceDay));
+        assertEquals(26, DateLogic.daysToNextMonth(independenceDay));
     }
-    
-    
+
+    @Test
+    public void daysInYearIsCorrectWhenLeapYear() {
+        Date leapYear = new Date();
+        leapYear.setYear(2000);
+        assertEquals(366, DateLogic.daysInYear(leapYear));
+    }
+
+    @Test
+    public void daysInYearIsCorrectWhenNotLeapYear() {
+        Date notLeapYear = new Date();
+        notLeapYear.setYear(2100);
+        assertEquals(365, DateLogic.daysInYear(notLeapYear));
+    }
+
+    @Test
+    public void iteratorDateMakesNoChangesToOriginal() {
+        Date iteratorDate = DateLogic.iteratorDate(fom);
+        String fomString = fom.toString();
+        iteratorDate.turnDay();
+        iteratorDate.turnDay();
+        assertEquals(3, iteratorDate.getDay());
+        iteratorDate.setMonth(6);
+        assertEquals(6, iteratorDate.getMonth());
+        iteratorDate.setYear(2020);
+        assertEquals(2020, iteratorDate.getYear());
+        assertEquals(fomString, fom.toString());
+    }
+
+    @Test
+    public void daysToNextYearFromFirstOfMay() {
+        assertEquals(245, DateLogic.daysToNextYear(fom));
+    }
+
+    @Test
+    public void daysToNextYearFromNewYearsEve() {
+        Date newYearsEve = new Date();
+        newYearsEve.setMonth(12);
+        newYearsEve.setDay(31);
+        assertEquals(1, DateLogic.daysToNextYear(newYearsEve));
+    }
+
+    @Test
+    public void daysToNextYearFromNewYear() {
+        Date newYear = new Date();
+        assertEquals(365, DateLogic.daysToNextYear(newYear));
+    }
+
+    @Test
+    public void stringIsCreatedFromProperInput() {
+
+    }
+
     // The methods must be annotated with annotation @Test. For example:
     //
     // @Test

@@ -116,6 +116,7 @@ public class Budget {
      * @param monthly decides whether the income is going to be payed once or
      * monthly.
      */
+    //TODO Refactor
     public void addIncome(String name, double amount, Date expiration, boolean monthly) {
         MoneyFlow income = new MoneyFlow(name, amount, expiration, monthly, false);
         this.incomes.add(income);
