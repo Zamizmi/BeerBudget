@@ -10,4 +10,4 @@ Java application created for University of Helsinki Java course. Using the app Y
 
 [Checkstyle raport](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/checkstyle/dl4/checkstyle.html)
 
-[Hour Accounting](Documentation/houraccounting.md)
+[Hour Accounting](Documentation/hourAccounting.md)
