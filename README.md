@@ -6,8 +6,8 @@ Java application created for University of Helsinki Java course. Using the app Y
 
 [Info and Structure of the Project](Documentation/descriptionAndStructure.md)
 
-[Pit raport](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/pit/201703302307/index.html)
+[Pit raport](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/pit/201704061313/index.html)
 
-[Checkstyle raport](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/checkstyle/dl3/checkstyle.html)
+[Checkstyle raport](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/checkstyle/dl4/checkstyle.html)
 
 [Hour Accounting](Documentation/houraccounting.md)
