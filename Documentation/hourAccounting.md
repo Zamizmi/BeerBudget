@@ -7,4 +7,6 @@ Date | Hours | Desription
 23.03.2017 | 12.0 | Tests and documentation for the Deadline 2
 29.03.2017 | 2.0 | Planning and creating DateLogic
 30.03.2017 | 10.0| Lots of tests, new functionality for DateLogic
-04.03.2017 | 1.0 | DateLogic updated. Read the feedback of the project and planned the needed changes
+04.04.2017 | 1.0 | DateLogic updated. Read the feedback of the project and planned the needed changes
+05.04.2017 | 3.0 | JavaDocs started. Some refactoring made.
+06.04.2017 | 5.0 | DL4 done. Made more tests, refactored the DateLogic and BudgetLogic. Started thinking GUI
