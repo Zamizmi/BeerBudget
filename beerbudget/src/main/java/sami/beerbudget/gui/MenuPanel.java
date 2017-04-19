@@ -6,6 +6,7 @@
 package sami.beerbudget.gui;
 
 import java.awt.GridLayout;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -17,7 +18,7 @@ import javax.swing.*;
 public class MenuPanel extends JPanel implements ActionListener {
 
     public MenuPanel() {
-        super(new GridLayout(1, 3));
+        super(new GridLayout(5, 2));
         createComponents();
     }
 
@@ -54,8 +55,14 @@ public class MenuPanel extends JPanel implements ActionListener {
         JButton firstOfMayButton = new JButton("First Of May");
         firstOfMayButton.addActionListener(this);
         add(firstOfMayButton);
+        JPanel test = new JPanel();
+        add(test);
+        
+        TextArea printer = new TextArea("text here");
+        printer.setSize(2 * targetButton.getWidth(), targetButton.getHeight());
+        add(printer);
     }
-    
+
     //TODO
     /**
      * When active, creates magic.

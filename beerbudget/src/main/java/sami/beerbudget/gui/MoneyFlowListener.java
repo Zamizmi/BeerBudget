@@ -52,7 +52,7 @@ public class MoneyFlowListener implements ActionListener {
             String name = this.name.getText();
             Date dateType = DateLogic.stringToDate(this.date.getText());
             //System.out.println(amount);
-            if (command.equals("Lisaa")) {
+            if (command.equals("Add")) {
                 if (expense) {
                     bl.newExpense(name, amount, dateType, monthly);
                     this.frame.dispose();

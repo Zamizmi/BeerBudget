@@ -1,10 +1,17 @@
 package sami.beerbudget.main;
 
-import javax.swing.*;
 import sami.beerbudget.gui.GUI;
 import sami.beerbudget.gui.InterfaceLogic;
 import sami.beerbudget.logic.Date;
 import sami.beerbudget.logic.DateLogic;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,9 +29,10 @@ public class Main {
         test.setYear(1900);
         System.out.println(DateLogic.daysInYear(test));
         GUI ui = new GUI();
-        SwingUtilities.invokeLater(ui);
+        //launch(GUI.class);
+        //SwingUtilities.invokeLater(ui);
         InterfaceLogic alku = new InterfaceLogic();
-        alku.run();
+        launch(GUI.class);
     }
 
 }
