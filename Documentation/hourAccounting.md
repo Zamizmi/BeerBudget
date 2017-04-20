@@ -10,3 +10,5 @@ Date | Hours | Desription
 04.04.2017 | 1.0 | DateLogic updated. Read the feedback of the project and planned the needed changes
 05.04.2017 | 3.0 | JavaDocs started. Some refactoring made.
 06.04.2017 | 5.0 | DL4 done. Made more tests, refactored the DateLogic and BudgetLogic. Started thinking GUI
+19.04.2017 | 2.0 | Started GUI from the beginning.
+20.04.2017 | 4.0 | Got the basic GUI to exist, but contains almost none of the logic.
