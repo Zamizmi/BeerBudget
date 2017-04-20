@@ -49,4 +49,7 @@
       
 Class Diagram for the Application
 
-![ClassDiagram](/Documentation/BeerBudget.png)
+
+![ClassDiagram](/Documentation/BeerBudget1.png)
+![Sequence Diagram: add new Income](/Documentation/allIncomes.png)
+![Sequence Diagram: Print all Incomes](/Documentation/sequenceNewIncome.png)
