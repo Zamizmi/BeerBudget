@@ -14,4 +14,4 @@ Java application created for University of Helsinki Java course. Using the app Y
 
 [Sequence Chart: list all incomes](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/allIncomes.png)
 
-[Sequence Chart: Add a new Income](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/Documentation/sequenceNewIncome.png)
+[Sequence Chart: Add a new Income](https://htmlpreview.github.io/?https://raw.githubusercontent.com/Zamizmi/beerbudget/master/Documentation/sequenceNewIncome.png)
