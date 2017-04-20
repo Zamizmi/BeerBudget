@@ -26,93 +26,73 @@ public class MoneyFlow {
         this.monthly = monthly;
         this.expense = expense;
     }
-    
+
     /**
-     * 
      * @return the amount of the moneyflow.
      */
-
     public double getAmount() {
         return amount;
     }
-    
+
     /**
-     * 
      * @param expense decides whether the moneyflow is expense or income.
      */
-    
     public void setExpense(boolean expense) {
         this.expense = expense;
     }
-    
+
     /**
-     * 
      * @return the due date of the moneyflow.
      */
-
     public Date getExpirationDate() {
         return expirationDate;
     }
-    
+
     /**
-     * 
      * @return the name of the moneyflow.
      */
-
     public String getName() {
         return name;
     }
-    
+
     /**
-     * 
      * @return returns true if moneyflow is expense or true if income.
      */
-
     public boolean isMonthly() {
         return monthly;
     }
-    
+
     /**
-     * 
      * @param amount is the new amount of the moneyflow. Always positive.
      */
-
     public void setAmount(double amount) {
         this.amount = amount;
     }
-    
+
     /**
-     * 
      * @param expirationDate is set as the new due date for the moneyflow.
      */
-
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
-    
+
     /**
-     * 
      * @param monthly is set as the new value for the @param monthly.
      */
-
     public void setMonthly(boolean monthly) {
         this.monthly = monthly;
     }
-    
+
     /**
-     * 
      * @param name is the new name of the moneyflow.
      */
-    
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
-     * 
      * @return the name and value with the info if income or expense.
      */
-
     @Override
     public String toString() {
         if (this.expense) {
@@ -120,12 +100,10 @@ public class MoneyFlow {
         }
         return name + " will give : " + amount;
     }
-    
+
     /**
-     * 
      * @return true if moneyflow is expense.
      */
-
     public boolean isExpense() {
         return expense;
     }

@@ -8,10 +8,8 @@ package sami.beerbudget.budget;
 import java.util.ArrayList;
 import sami.beerbudget.logic.Date;
 
-/**
- *
+/**Budget is the holder of all information.
  * @author saklindq Budget holds all incomes and expenses of the user.
- *
  */
 public class Budget {
 
@@ -28,24 +26,21 @@ public class Budget {
         this.expenses = new ArrayList<>();
     }
 
-    /**
-     *
+    /**Get Balance.
      * @return current balance as Double.
      */
     public double getBalance() {
         return balance;
     }
 
-    /**
-     *
+    /**Adds param to balance.
      * @param amount is added to the balance.
      */
     public void addToBalance(double amount) {
         this.balance += amount;
     }
 
-    /**
-     *
+    /**Subtracts from balance.
      * @param amount is subtracted from the balance.
      */
     public void subractFromBalance(double amount) {
@@ -53,23 +48,20 @@ public class Budget {
     }
 
     /**
-     *
      * @param balance is set as the new balance of the budget.
      */
     public void setBalance(double balance) {
         this.balance = balance;
     }
 
-    /**
-     *
+    /**Sets target to new value.
      * @param target is set as the new target of the budget.
      */
     public void setTarget(double target) {
         this.target = target;
     }
 
-    /**
-     *
+    /**Returns target.
      * @return the target amount to be saved from the budget.
      */
     public double getTarget() {
@@ -77,16 +69,14 @@ public class Budget {
     }
 
     //TODO
-    /**
-     *
+    /**Might get kicked out.
      * @param end sets the end as the new end-of-budget.
      */
     public void setEnd(Date end) {
         this.end = end;
     }
 
-    /**
-     *
+    /**End.
      * @return Date when the budget is planned to be ended.
      */
     public Date getEnd() {
@@ -95,7 +85,6 @@ public class Budget {
 
     /**
      * Creates and adds an expense to the Budget.
-     *
      * @param name is the name of the new expense.
      * @param amount is the amount of the new expense. Always positive.
      * @param expiration is the due date of the expense.
@@ -109,7 +98,6 @@ public class Budget {
 
     /**
      * Creates and adds an income to the Budget.
-     *
      * @param name is the name of the new income.
      * @param amount is the amount of the new income. Always positive.
      * @param expiration is the due date of the income.
@@ -122,24 +110,21 @@ public class Budget {
         this.incomes.add(income);
     }
 
-    /**
-     *
+    /**Get Expenses.
      * @return All expenses.
      */
     public ArrayList<MoneyFlow> getExpenses() {
         return this.expenses;
     }
 
-    /**
-     *
-     * @return ALl the Incomes.
+    /**Get Incomes.
+     * @return ALL the Incomes.
      */
     public ArrayList<MoneyFlow> getIncomes() {
         return this.incomes;
     }
 
-    /**
-     *
+    /**String with target and balance.
      * @return Target and Balance of the Budget.
      */
     @Override

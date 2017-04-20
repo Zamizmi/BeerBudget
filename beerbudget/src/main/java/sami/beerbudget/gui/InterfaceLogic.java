@@ -5,6 +5,7 @@
  */
 package sami.beerbudget.gui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import sami.beerbudget.budget.MoneyFlow;
 import sami.beerbudget.logic.BudgetLogic;
@@ -43,27 +44,35 @@ public class InterfaceLogic {
         commands();
     }
 
-    /**
-     *
-     * Prints all the commands available for the text-based UI.
-     *
-     */
-    public void listCommands() {
-        System.out.println("list - Prints all the commands");
-        System.out.println("moneyflow - Add new expense or income");
-        System.out.println("balance - Print current balance");
-        System.out.println("budget - View the current budget");
-        System.out.println("incomes - Prints all added incomes");
-        System.out.println("expenses - Prints all added expenses");
-        System.out.println("target - Prints current target and how long you will have save for it at current budget");
-        System.out.println("First of May -  Prints the number of beers you will get at the next First of May!");
+    public Double textToDouble(String input) {
+        try {
+            Double toReturn = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+        return 0.0;
     }
 
     /**
-     *
+     * Returns all the commands available for the text-based UI.
+     * @return all commands.
+     */
+    public ArrayList<String> listCommands() {
+        ArrayList commands = new ArrayList<>();
+        commands.add("list - Prints all the commands");
+        commands.add("moneyflow - Add new expense or income");
+        commands.add("balance - Print current balance");
+        commands.add("budget - View the current budget");
+        commands.add("incomes - Prints all added incomes");
+        commands.add("expenses - Prints all added expenses");
+        commands.add("target - Prints current target and how long you will have save for it at current budget");
+        commands.add("First of May -  Prints the number of beers you will get at the next First of May!");
+        return commands;
+    }
+
+    /**
      * Is running while app is running in text-based. Asks for input and calls
      * the right methods after receiving commands.
-     *
      */
     public void commands() {
         while (true) {
@@ -91,6 +100,28 @@ public class InterfaceLogic {
             } else {
                 System.out.println("Command was invalid!");
             }
+        }
+    }
+
+    public void giveCommand(String command) {
+        if (command.equals("moneyflow")) {
+            askForMoneyFlow();
+        } else if (command.equals("balance")) {
+            currentBalance();
+        } else if (command.equals("budget")) {
+            currentBudget();
+        } else if (command.equals("incomes")) {
+            listIncomes();
+        } else if (command.equals("expenses")) {
+            listExpenses();
+        } else if (command.equals("target")) {
+            printTarget();
+        } else if (command.equals("First of May")) {
+            firstOfMay();
+        } else if (command.equals("exit")) {
+            System.out.println("SEE YA MONEY MASTER!");
+        } else {
+            System.out.println("Command was invalid!");
         }
     }
 
@@ -143,7 +174,7 @@ public class InterfaceLogic {
     }
 
     /**
-     * Prints TODO. Also prints the amount of beers User can buy at the next
+     * Prints funny things. Also prints the amount of beers User can buy at the next
      * First Of May.
      */
     public void firstOfMay() {
@@ -227,7 +258,6 @@ public class InterfaceLogic {
     }
 
     /**
-     *
      * @return Date from User input.
      */
     public Date askForDate() {

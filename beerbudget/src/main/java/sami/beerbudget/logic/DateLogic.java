@@ -19,7 +19,6 @@ public class DateLogic {
      * Returns amount of days to next month. Creates an iterator date to ensure
      * integrity of the original date. Calls turnDay until month has changed.
      * Validates possible lengths of leap years etc.
-     *
      * @param date days calculated from.
      * @return integer, days to next month.
      */
@@ -36,7 +35,6 @@ public class DateLogic {
 
     /**
      * Returns the length of the year. Considers leap years accordingly.
-     *
      * @param date what year is wanted to be checked.
      * @return integer, number of days in a year.
      */
@@ -55,7 +53,6 @@ public class DateLogic {
      * Returns amount of days to next year. Creates an iterator date to ensure
      * integrity of the original date. Calls turnDay until year has changed.
      * Validates possible lengths of leap years etc.
-     *
      * @param date days calculated from.
      * @return integer, days to next year.
      */
@@ -74,7 +71,6 @@ public class DateLogic {
      * Returns amount of days to next First of May. Creates an iteratorDate to
      * ensure integrity of original Date. Validates possible lengths of leap
      * years etc.
-     *
      * @param date to count from.
      * @return Integer, days to next First of May.
      */
@@ -101,7 +97,6 @@ public class DateLogic {
 
     /**
      * Returns an iterator copy of the given date.
-     *
      * @param date to make the copy from.
      * @return Date, copy of the input Date.
      */
@@ -116,7 +111,6 @@ public class DateLogic {
     //TODO: more validations, ex. dd.mm.yyyy
     /**
      * Turns correct String input to Date.
-     *
      * @param dateString String in format dd-mm-yyyy.
      * @return Date from the input.
      */

@@ -40,7 +40,6 @@ public class Date {
     /**
      * Returns the length of the current month. Calculates every months length
      * individually. Therefore looks a bit horrific.
-     *
      * @return integer of the length of the month.
      */
     public int monthLength() {
@@ -103,7 +102,6 @@ public class Date {
 
     /**
      * Gives dd.mm.yyyy presentation of the date.
-     *
      * @return String dd.mm.yyyy
      */
     @Override
