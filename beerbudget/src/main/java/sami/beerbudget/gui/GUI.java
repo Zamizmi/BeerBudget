@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -37,7 +38,7 @@ public class GUI extends Application {
         this.bl = new BudgetLogic();
         this.window = new Stage();
         this.window.setScene(startScene());
-        this.window.setHeight(400);
+        this.window.setHeight(600);
         this.window.setWidth(400);
         this.window.show();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -111,12 +112,12 @@ public class GUI extends Application {
         buttons.setPadding(new Insets(10, 10, 10, 10));
 
         buttons.add(moneyflow, 0, 0);
-        buttons.add(balance, 2, 0);
-        buttons.add(budget, 2, 2);
-        buttons.add(incomes, 0, 2);
-        buttons.add(expenses, 2, 4);
-        buttons.add(target, 0, 4);
-        buttons.add(firstOfMay, 2, 6);
+        buttons.add(balance, 3, 0);
+        buttons.add(budget, 3, 3);
+        buttons.add(incomes, 0, 3);
+        buttons.add(expenses, 3, 6);
+        buttons.add(target, 0, 6);
+        buttons.add(firstOfMay, 0, 9);
 
         Scene basicMenu = new Scene(buttons);
         return basicMenu;
@@ -241,16 +242,41 @@ public class GUI extends Application {
         
         Label desc = new Label("Choose Income or Expense");
         moneyFlowGrid.add(desc, 2, 0);
+        ToggleGroup buttons = new ToggleGroup();
         RadioButton income = new RadioButton("Income");
+        income.setToggleGroup(buttons);
         RadioButton expense = new RadioButton("Expense");
+        expense.setToggleGroup(buttons);
+        Label monthlyDesc = new Label("If The Cash Flow Is Due Monthly, Check The Box");
+        RadioButton monthlyButton = new RadioButton("Is Monthly");
+        Label amountDesc = new Label("Fill In The Amount Of Cash Flow, 'xxx.xx'");
+        TextField amountInput = new TextField("0");
+        Label dateDesc = new Label("Fill In The Due Date For The Flow, 'dd-mm-yyyy'");
+        TextField dateInput = new TextField("dd-mm-yyyy");
+        Button submit = new Button("Submit");
+        submit.setOnAction((event) -> {
+            //TODO the event handler to create flow
+            this.window.setScene(basicMenu());
+        });
         
-        moneyFlowGrid.add(income, 2, 4);
-        moneyFlowGrid.add(expense, 2, 6);
+        
+        
+        moneyFlowGrid.add(income, 2, 2);
+        moneyFlowGrid.add(expense, 2, 4);
+        moneyFlowGrid.add(monthlyDesc, 2, 6);
+        moneyFlowGrid.add(monthlyButton, 2, 8);
+        moneyFlowGrid.add(amountDesc, 2, 10);
+        moneyFlowGrid.add(amountInput, 2, 12);
+        moneyFlowGrid.add(dateDesc, 2, 14);
+        moneyFlowGrid.add(dateInput, 2, 16);
+        moneyFlowGrid.add(submit, 2, 18);
+        
+        
         Button toMenu = new Button("Menu");
         toMenu.setOnAction((event) -> {
             this.window.setScene(basicMenu());
         });
-        moneyFlowGrid.add(toMenu, 2, 16);
+        moneyFlowGrid.add(toMenu, 2, 20);
 
         Scene moneyFlowScene = new Scene(moneyFlowGrid);
         return moneyFlowScene;
