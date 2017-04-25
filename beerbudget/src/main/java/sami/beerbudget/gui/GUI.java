@@ -11,12 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import sami.beerbudget.budget.MoneyFlow;
 import sami.beerbudget.logic.BudgetLogic;
+import sami.beerbudget.logic.Date;
+import sami.beerbudget.logic.DateLogic;
 
 /**
  *
@@ -46,12 +49,17 @@ public class GUI extends Application {
 
     private Scene startScene() {
         Label currentBalance = new Label("Current Balance: ");
-        TextField balanceInput = new TextField();
+        TextField balanceInput = new TextField("0");
         Label targetText = new Label("Target: ");
-        TextField targetInput = new TextField();
+        TextField targetInput = new TextField("0");
+        Label dateDesc = new Label("Current Date: ");
+        TextField dateInput = new TextField("dd-mm-yyyy");
 
         Button continueButton = new Button("Push to Continue");
         continueButton.setOnAction((event) -> {
+            this.bl.setBalance(Double.parseDouble(balanceInput.getText()));
+            this.bl.setTarget(Double.parseDouble(targetInput.getText()));
+            this.bl.setCurrentDate(DateLogic.stringToDate(dateInput.getText()));
             this.window.setScene(basicMenu());
         });
 
@@ -60,7 +68,9 @@ public class GUI extends Application {
         startView.add(balanceInput, 1, 0);
         startView.add(targetText, 0, 1);
         startView.add(targetInput, 1, 1);
-        startView.add(continueButton, 1, 2);
+        startView.add(dateDesc, 0, 2);
+        startView.add(dateInput, 1, 2);
+        startView.add(continueButton, 1, 4);
         startView.setHgap(10);
         startView.setVgap(10);
         startView.setPadding(new Insets(10, 10, 10, 10));
@@ -113,9 +123,9 @@ public class GUI extends Application {
 
         buttons.add(moneyflow, 0, 0);
         buttons.add(balance, 3, 0);
-        buttons.add(budget, 3, 3);
+        buttons.add(expenses, 3, 3);
         buttons.add(incomes, 0, 3);
-        buttons.add(expenses, 3, 6);
+        buttons.add(budget, 3, 6);
         buttons.add(target, 0, 6);
         buttons.add(firstOfMay, 0, 9);
 
@@ -128,18 +138,16 @@ public class GUI extends Application {
         balanceGrid.setVgap(10);
         balanceGrid.setHgap(10);
         balanceGrid.setPadding(new Insets(10, 10, 10, 10));
-        Label balanceATM = new Label("Your Current Balance is: " + bl.currentBalance() + " €");
+        TextArea balanceATM = new TextArea("Your Current Balance is: " + bl.currentBalance() + " €");
         balanceGrid.add(balanceATM, 2, 0);
-        Label endOfMonth = new Label("With Current Budget You'll Have " + bl.balanceAtTheEndOfMonth() + " €");
+        TextArea endOfMonth = new TextArea("With Current Budget You'll Have " + bl.balanceAtTheEndOfMonth() + " € at the End of the Month.");
         balanceGrid.add(endOfMonth, 2, 4);
+        endOfMonth.setWrapText(true);
         Button toMenu = new Button("Menu");
         toMenu.setOnAction((event) -> {
             this.window.setScene(basicMenu());
         });
         balanceGrid.add(toMenu, 2, 16);
-        toMenu.setOnAction((event) -> {
-            this.window.setScene(basicMenu());
-        });
 
         Scene balanceScene = new Scene(balanceGrid);
         return balanceScene;
@@ -152,21 +160,32 @@ public class GUI extends Application {
     }
 
     private Scene incomesScene() {
+        int i = 1;
         GridPane incomeGrid = new GridPane();
-        incomeGrid.setVgap(10);
-        incomeGrid.setHgap(10);
-        incomeGrid.setPadding(new Insets(10, 10, 10, 10));
+        incomeGrid.setVgap(5);
+        incomeGrid.setHgap(5);
+        //incomeGrid.setPadding(new Insets(10, 10, 10, 10));
 
-        Label desc = new Label("Here Are Listed Your Incomes For The Month");
-        Label incomes = new Label("" + bl.getIncomes());
+        Label desc = new Label("Here Are Listed Your Incomes");
         incomeGrid.add(desc, 0, 0);
-        incomeGrid.add(incomes, 0, 2);
+        for (MoneyFlow income : bl.getIncomes()) {
+            Label name = new Label(income.toString());
+            Button delete = new Button("Delete");
+            delete.setOnAction((event) -> {
+                bl.deleteIncome(income);
+                delete.setVisible(false);
+            });
+            incomeGrid.add(delete, 1, i);
+            incomeGrid.add(name, 0, i);
+            i += 1;
+        }
 
+        //incomeGrid.add(incomeArea, 0, 2);
         Button toMenu = new Button("Menu");
         toMenu.setOnAction((event) -> {
             this.window.setScene(basicMenu());
         });
-        incomeGrid.add(toMenu, 2, 16);
+        incomeGrid.add(toMenu, 1, i);
 
         Scene incomeScene = new Scene(incomeGrid);
         return incomeScene;
@@ -179,6 +198,10 @@ public class GUI extends Application {
         expenseGrid.setPadding(new Insets(10, 10, 10, 10));
 
         Label desc = new Label("Here Are Listed Your Expenses For The Month");
+        for (int i = 0; i < bl.getExpenses().size(); i++) {
+            String name = "Expense" + i;
+            Label expense = new Label("" + bl.getExpenses().get(i) + " Will get Realized at " + bl.getExpenses().get(i).getExpirationDate());
+        }
         Label expenses = new Label("" + bl.getExpenses());
         expenseGrid.add(desc, 0, 0);
         expenseGrid.add(expenses, 0, 2);
@@ -206,7 +229,7 @@ public class GUI extends Application {
         toMenu.setOnAction((event) -> {
             this.window.setScene(basicMenu());
         });
-        targetGrid.add(toMenu, 2, 16);
+        targetGrid.add(toMenu, 1, 16);
 
         Scene targetScene = new Scene(targetGrid);
         return targetScene;
@@ -218,7 +241,7 @@ public class GUI extends Application {
         firstOfMayGrid.setHgap(10);
         firstOfMayGrid.setPadding(new Insets(10, 10, 10, 10));
 
-        Label daysToMayDay = new Label("It is " + bl.toFirstOfMay() + " Days To First Of May!");
+        Label daysToMayDay = new Label("It is " + DateLogic.daysToNextFirstOfMay(bl.getCurrentDate()) + " Days To First Of May!");
         firstOfMayGrid.add(daysToMayDay, 0, 2);
         Label mayDay = new Label("And You'll Get " + bl.countBeers(4.0) + " Beers At Then!");
         firstOfMayGrid.add(mayDay, 0, 4);
@@ -239,7 +262,7 @@ public class GUI extends Application {
         moneyFlowGrid.setVgap(10);
         moneyFlowGrid.setHgap(10);
         moneyFlowGrid.setPadding(new Insets(10, 10, 10, 10));
-        
+
         Label desc = new Label("Choose Income or Expense");
         moneyFlowGrid.add(desc, 2, 0);
         ToggleGroup buttons = new ToggleGroup();
@@ -247,6 +270,8 @@ public class GUI extends Application {
         income.setToggleGroup(buttons);
         RadioButton expense = new RadioButton("Expense");
         expense.setToggleGroup(buttons);
+        Label nameDesc = new Label("Name: ");
+        TextField nameInput = new TextField();
         Label monthlyDesc = new Label("If The Cash Flow Is Due Monthly, Check The Box");
         RadioButton monthlyButton = new RadioButton("Is Monthly");
         Label amountDesc = new Label("Fill In The Amount Of Cash Flow, 'xxx.xx'");
@@ -255,28 +280,35 @@ public class GUI extends Application {
         TextField dateInput = new TextField("dd-mm-yyyy");
         Button submit = new Button("Submit");
         submit.setOnAction((event) -> {
-            //TODO the event handler to create flow
+            String name = nameInput.getText();
+            Double amount = Double.parseDouble(amountInput.getText());
+            Date dueDate = DateLogic.stringToDate(dateInput.getText());
+            Boolean isMonthly = monthlyButton.isSelected();
+            if (buttons.getSelectedToggle().equals(income)) {
+                bl.newIncome(name, amount, dueDate, isMonthly);
+            } else {
+                bl.newExpense(name, amount, dueDate, isMonthly);
+            }
             this.window.setScene(basicMenu());
         });
-        
-        
-        
+
         moneyFlowGrid.add(income, 2, 2);
         moneyFlowGrid.add(expense, 2, 4);
         moneyFlowGrid.add(monthlyDesc, 2, 6);
         moneyFlowGrid.add(monthlyButton, 2, 8);
-        moneyFlowGrid.add(amountDesc, 2, 10);
-        moneyFlowGrid.add(amountInput, 2, 12);
-        moneyFlowGrid.add(dateDesc, 2, 14);
-        moneyFlowGrid.add(dateInput, 2, 16);
-        moneyFlowGrid.add(submit, 2, 18);
-        
-        
+        moneyFlowGrid.add(nameDesc, 2, 10);
+        moneyFlowGrid.add(nameInput, 2, 12);
+        moneyFlowGrid.add(amountDesc, 2, 14);
+        moneyFlowGrid.add(amountInput, 2, 16);
+        moneyFlowGrid.add(dateDesc, 2, 18);
+        moneyFlowGrid.add(dateInput, 2, 20);
+        moneyFlowGrid.add(submit, 2, 22);
+
         Button toMenu = new Button("Menu");
         toMenu.setOnAction((event) -> {
             this.window.setScene(basicMenu());
         });
-        moneyFlowGrid.add(toMenu, 2, 20);
+        moneyFlowGrid.add(toMenu, 2, 24);
 
         Scene moneyFlowScene = new Scene(moneyFlowGrid);
         return moneyFlowScene;

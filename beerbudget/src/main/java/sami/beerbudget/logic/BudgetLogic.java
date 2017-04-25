@@ -31,6 +31,7 @@ public class BudgetLogic {
      * Sets the balance to the given amount.
      *
      * @param balance input to be the new balance.
+     * @return true if succeeded.
      */
     public boolean setBalance(double balance) {
         this.budget.setBalance(balance);
@@ -42,7 +43,9 @@ public class BudgetLogic {
 
     /**
      * Sets the target to the given amount.
+     *
      * @param target input to be the new target.
+     * @return true if succeeded.
      */
     public boolean setTarget(double target) {
         this.budget.setTarget(target);
@@ -54,6 +57,7 @@ public class BudgetLogic {
 
     /**
      * Returns double as the current target of the budget.
+     *
      * @return the target from the budget.
      */
     public double getTarget() {
@@ -63,6 +67,7 @@ public class BudgetLogic {
     /**
      * Returns string with days to accomplish the target. Counts days until
      * target is fulfilled or 50 years is reached.
+     *
      * @return string with days to the target or tells if the target will never
      * be fulfilled.
      */
@@ -84,6 +89,7 @@ public class BudgetLogic {
     /**
      * Returns integer with days to fulfil the target. Counts days until target
      * is fulfilled or 50 years is reached.
+     *
      * @return the days to target or -1 if 50 years will pass.
      */
     public int daysToTargetInDays() {
@@ -91,7 +97,7 @@ public class BudgetLogic {
         Budget targetBudget = this.budget;
         BudgetLogic targetLogic = new BudgetLogic(targetBudget, toTarget);
         int daysToGo = 0;
-        while (targetLogic.currentBalance() <= this.getTarget()) {
+        while (targetLogic.currentBalance() < this.getTarget()) {
             targetLogic.turnOneDay();
             daysToGo++;
             if (daysToGo > 18263) {
@@ -103,6 +109,7 @@ public class BudgetLogic {
 
     /**
      * Sets the input date as the budgets end date.
+     *
      * @param date input to be the new end date of the budget.
      */
     public void setEndDate(Date date) {
@@ -111,6 +118,7 @@ public class BudgetLogic {
 
     /**
      * Get end date of budget.
+     *
      * @return ending date of budget.
      */
     public Date getEndDate() {
@@ -119,6 +127,7 @@ public class BudgetLogic {
 
     /**
      * Sets the input date as the current date for the app.
+     *
      * @param currentDate as the current date of the app.
      */
     public void setCurrentDate(Date currentDate) {
@@ -127,6 +136,7 @@ public class BudgetLogic {
 
     /**
      * Returns Date of the current date.
+     *
      * @return Date of the app.
      */
     public Date getCurrentDate() {
@@ -135,6 +145,7 @@ public class BudgetLogic {
 
     /**
      * Returns the current balance as Double.
+     *
      * @return Double as the current balance.
      */
     public double currentBalance() {
@@ -157,13 +168,17 @@ public class BudgetLogic {
      * balance.
      */
     public void checkIncomes() {
+        ArrayList<MoneyFlow> remove = new ArrayList<>();
         for (MoneyFlow income : this.budget.getIncomes()) {
             if (income.getExpirationDate().getDay() == this.today.getDay() && income.isMonthly()) {
+                income.setExpirationDate(DateLogic.turnToSameDayNextMonth(today));
                 this.budget.addToBalance(income.getAmount());
             } else if (income.getExpirationDate().getDay() == this.today.getDay() && income.getExpirationDate().getMonth() == this.today.getMonth() && !income.isMonthly()) {
                 this.budget.addToBalance(income.getAmount());
+                remove.add(income);
             }
         }
+        this.budget.getIncomes().removeAll(remove);
     }
 
     /**
@@ -172,13 +187,17 @@ public class BudgetLogic {
      * the amount from balance.
      */
     public void checkExpenses() {
+        ArrayList<MoneyFlow> remove = new ArrayList<>();
         for (MoneyFlow expense : budget.getExpenses()) {
             if (expense.getExpirationDate().getDay() == this.today.getDay() && expense.isMonthly()) {
+                expense.setExpirationDate(DateLogic.turnToSameDayNextMonth(today));
                 this.budget.subractFromBalance(expense.getAmount());
             } else if (expense.getExpirationDate().getDay() == this.today.getDay() && expense.getExpirationDate().getMonth() == this.today.getMonth() && !expense.isMonthly()) {
                 this.budget.subractFromBalance(expense.getAmount());
+                remove.add(expense);
             }
         }
+        this.budget.getExpenses().removeAll(remove);
     }
 
     /**
@@ -191,6 +210,7 @@ public class BudgetLogic {
 
     /**
      * Calls turnOneDay() many times.
+     *
      * @param days to be turned, must be greater than 1.
      */
     public void turnManyDays(int days) {
@@ -228,6 +248,7 @@ public class BudgetLogic {
 
     /**
      * Return all Incomes in a ArrayList.
+     *
      * @return ArrayList containing all the incomes.
      */
     public ArrayList<MoneyFlow> getIncomes() {
@@ -236,6 +257,7 @@ public class BudgetLogic {
 
     /**
      * Return all Expenses in a ArrayList.
+     *
      * @return ArrayList containing all the expenses.
      */
     public ArrayList<MoneyFlow> getExpenses() {
@@ -244,6 +266,7 @@ public class BudgetLogic {
 
     /**
      * Return the sum of all the incomes.
+     *
      * @return double with value of all incomes.
      */
     public double sumIncomes() {
@@ -256,6 +279,7 @@ public class BudgetLogic {
 
     /**
      * Return the sum of all the expenses.
+     *
      * @return double with value of all expenses.
      */
     public double sumExpenses() {
@@ -269,6 +293,7 @@ public class BudgetLogic {
     /**
      * Creates new expense and adds it to the budget. Asks input from the User
      * to create a new expense.
+     *
      * @param name String to be the name.
      * @param amount Double to be the amount of the MoneyFlow. Must be positive.
      * @param expiration Date to be the dueDate for the MoneyFlow.
@@ -281,6 +306,7 @@ public class BudgetLogic {
     /**
      * Creates new income and adds it to the budget. Asks input from the User to
      * create a new income.
+     *
      * @param name String to be the name.
      * @param amount Double to be the amount of the MoneyFlow. Must be positive.
      * @param expiration Date to be the dueDate for the MoneyFlow.
@@ -292,6 +318,7 @@ public class BudgetLogic {
 
     /**
      * Returns integer as the amount of beers User can buy at next First of May.
+     *
      * @param price price for the wanted beer. Double.
      * @return Amount of beers User can buy. Integer.
      */
@@ -314,6 +341,7 @@ public class BudgetLogic {
 
     /**
      * Returns number of days to given Date.
+     *
      * @param dateTo Date as the target.
      * @return Integer, number of days to dateTo.
      */
@@ -325,6 +353,7 @@ public class BudgetLogic {
      * Counts and returns the amount of money User will have at the end of
      * month. Creates a iterator Date and a copy of BudgetLogic to ensure the
      * integrity of the real Budget.
+     *
      * @return Double, amount of money User will have at the end of month.
      */
     public double balanceAtTheEndOfMonth() {
@@ -336,14 +365,20 @@ public class BudgetLogic {
         return atTheEndLogic.currentBalance();
     }
 
-    /**
-     * Don't know yet what to do with this one. Perhaps a picture if there is
-     * enough time?
-     * @return something to do with First of May.
-     */
-    public String toFirstOfMay() {
-        //TODO
-        return "12";
+    public boolean deleteIncome(MoneyFlow toBeDeleted) {
+        if (this.budget.getIncomes().contains(toBeDeleted)) {
+            this.budget.getIncomes().remove(toBeDeleted);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteExpense(MoneyFlow toBeDeleted) {
+        if (this.budget.getExpenses().contains(toBeDeleted)) {
+            this.budget.getExpenses().remove(toBeDeleted);
+            return true;
+        }
+        return false;
     }
 
     //TODO: change the amount of beers to something else?

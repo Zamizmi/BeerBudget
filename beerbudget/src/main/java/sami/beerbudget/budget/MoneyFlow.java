@@ -70,10 +70,10 @@ public class MoneyFlow {
     }
 
     /**
-     * @param expirationDate is set as the new due date for the moneyflow.
+     * @param newExpirationDate is set as the new due date for the moneyflow.
      */
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
+    public void setExpirationDate(Date newExpirationDate) {
+        this.expirationDate = newExpirationDate;
     }
 
     /**
@@ -91,14 +91,11 @@ public class MoneyFlow {
     }
 
     /**
-     * @return the name and value with the info if income or expense.
+     * @return the name and value.
      */
     @Override
     public String toString() {
-        if (this.expense) {
-            return name + " will cost : " + amount;
-        }
-        return name + " will give : " + amount;
+        return name + " Amount: " + amount + ", Due Date: " + getExpirationDate();
     }
 
     /**
