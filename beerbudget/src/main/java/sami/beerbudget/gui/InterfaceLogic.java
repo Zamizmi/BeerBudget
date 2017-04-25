@@ -178,7 +178,7 @@ public class InterfaceLogic {
      * First Of May.
      */
     public void firstOfMay() {
-        System.out.println(logic.toFirstOfMay());
+        //System.out.println(logic.toFirstOfMay());
         System.out.println("You will get " + logic.countBeers(1.0) + " beers at First of May!");
 
     }
