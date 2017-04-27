@@ -72,8 +72,8 @@ public class BudgetLogic {
      * be fulfilled.
      */
     public String daysToTarget() {
-        Date toTarget = this.today;
-        Budget targetBudget = this.budget;
+        Date toTarget = DateLogic.iteratorDate(today);
+        Budget targetBudget = iteratorBudget(budget);
         BudgetLogic targetLogic = new BudgetLogic(targetBudget, toTarget);
         int daysToGo = 0;
         while (targetLogic.currentBalance() <= this.getTarget()) {
@@ -84,6 +84,20 @@ public class BudgetLogic {
             }
         }
         return "With the current budget it will take " + daysToGo + " days to reach the target.";
+    }
+
+    /**
+     * Returns budget iterator.
+     *
+     * @param budget to be iterated.
+     * @return iterator budget for use.
+     */
+    public Budget iteratorBudget(Budget budget) {
+        Budget iteratorBudget = new Budget();
+        iteratorBudget.setBalance(budget.getBalance());
+        iteratorBudget.setTarget(budget.getTarget());
+        iteratorBudget.setEnd(budget.getEnd());
+        return iteratorBudget;
     }
 
     /**
@@ -179,6 +193,10 @@ public class BudgetLogic {
             }
         }
         this.budget.getIncomes().removeAll(remove);
+    }
+    
+    public Double shortOfTarget() {
+        return budget.getBalance() - budget.getTarget();
     }
 
     /**

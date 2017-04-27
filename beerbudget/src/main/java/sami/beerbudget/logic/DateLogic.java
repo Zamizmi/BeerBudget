@@ -113,10 +113,11 @@ public class DateLogic {
     /**
      * Turns correct String input to Date.
      *
-     * @param dateString String in format dd-mm-yyyy.
+     * @param dateString String in format dd.mm.yyyy
      * @return Date from the input.
      */
     public static Date stringToDate(String dateString) {
+
         //takes the input in dd-mm-yyyy format
         String[] split = dateString.split("-");
         int day = Integer.parseInt(split[0]);
@@ -140,5 +141,18 @@ public class DateLogic {
 
     public static boolean isTheLastDayOfMonth(Date date) {
         return date.getDay() == date.monthLength();
+    }
+
+    public static boolean firstDateIsBeforeSecondDateOrEqual(Date first, Date second) {
+        if (second.getYear() < first.getYear()) {
+            return false;
+        }
+        if (second.getMonth() < first.getMonth()) {
+            return false;
+        }
+        if (second.getDay() < first.getDay()) {
+            return false;
+        }
+        return true;
     }
 }

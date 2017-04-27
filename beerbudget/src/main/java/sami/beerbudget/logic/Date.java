@@ -101,12 +101,12 @@ public class Date {
     }
 
     /**
-     * Gives dd.mm.yyyy presentation of the date.
-     * @return String dd.mm.yyyy
+     * Gives dd.-m-yyyy presentation of the date.
+     * @return String dd-mm-yyyy
      */
     @Override
     public String toString() {
-        return this.day + "." + this.month + "." + this.year;
+        return this.day + "-" + this.month + "-" + this.year;
     }
 
 }
