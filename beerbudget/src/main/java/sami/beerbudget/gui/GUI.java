@@ -6,6 +6,8 @@
 package sami.beerbudget.gui;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -124,6 +126,7 @@ public class GUI extends Application {
         });
         firstOfMay.setMinSize(120, 20);
         Label currentDate = new Label("Current Date: " + bl.getCurrentDate() + "");
+        currentDate.setWrapText(true);
         Label shortOfTarget = new Label();
         shortOfTarget.setWrapText(true);
         if (bl.shortOfTarget() > 0) {
@@ -258,6 +261,7 @@ public class GUI extends Application {
         targetGrid.setPadding(new Insets(10, 10, 10, 10));
         
         Label desc = new Label(bl.daysToTarget());
+        desc.setWrapText(true);
         targetGrid.add(desc, 0, 0);
         
         Button toMenu = new Button("Menu");
@@ -306,24 +310,41 @@ public class GUI extends Application {
         income.setSelected(true);
         RadioButton expense = new RadioButton("Expense");
         expense.setToggleGroup(buttons);
+        
         Label nameDesc = new Label("Name: ");
         TextField nameInput = new TextField();
+        BooleanBinding nameInputValid = Bindings.createBooleanBinding(() -> {
+            return nameInput.getText().isEmpty();
+        }, nameInput.textProperty());
+        
         Label monthlyDesc = new Label("If The Cash Flow Is Due Monthly, Check The Box");
         RadioButton monthlyButton = new RadioButton("Is Monthly");
+        
         Label amountDesc = new Label("Fill In The Amount Of Cash Flow, 'xxx.xx'");
         TextField amountInput = new TextField("0");
+        BooleanBinding amountInputValid = Bindings.createBooleanBinding(() -> {
+            return Tools.isStringToOnlyNotNegativeDouble(amountInput.getText());
+        }, nameInput.textProperty());
+        
         amountInput.textProperty().addListener(new DoubleListener(amountInput));
         Label dateDesc = new Label("Fill In The Due Date For The Flow, 'dd-mm-yyyy'");
         TextField dateInput = new TextField(bl.getCurrentDate() + "");
+        BooleanBinding dateInputValid = Bindings.createBooleanBinding(() -> {
+            return Tools.isStringToDate(dateInput.getText());
+        }, nameInput.textProperty());
+        
         Button submit = new Button("Submit");
+        submit.disableProperty().bind(amountInputValid.not().or(dateInputValid).not().or(nameInputValid));
         
         submit.setOnAction((event) -> {
+            
             String name = "";
             Double amount = 0.0;
             Date dueDate = new Date();
             
             if (!nameInput.getText().isEmpty()) {
                 name = nameInput.getText();
+            } else {
             }
             if (Tools.isStringToOnlyNotNegativeDouble(amountInput.getText())) {
                 amount = Double.parseDouble(amountInput.getText());

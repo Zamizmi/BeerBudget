@@ -13,6 +13,11 @@ import java.util.regex.Pattern;
  */
 public class Tools {
 
+    public static boolean isStringToDate(String input) {
+        Pattern dates = Pattern.compile("[0-31]-[0-12]-[\\d+]");
+        return dates.matcher(input).matches();
+    }
+
     public static boolean isStringToDouble(String input) {
         Pattern digits = Pattern.compile("[0-9]+.[0-9]+");
         return digits.matcher(input).matches();
