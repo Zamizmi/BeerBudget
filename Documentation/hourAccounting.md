@@ -13,3 +13,5 @@ Date | Hours | Desription
 19.04.2017 |  2.0  | Started GUI from the beginning.
 20.04.2017 |  4.0  | Got the basic GUI to exist, but contains almost none of the logic.
 21.04.2017 |  1.5  | Continued GUI.
+03.05.2017 |  1.5  | Fixed issues.
+04.05.2017 |  10.5  | All the missing functionality.

@@ -3,23 +3,19 @@
 **User** actions
   - Create a budget
     - Add MoneyFlow -objects
+      - Income
+      - Expense
     - Set current date
     - See the balance
     - List all MoneyFlows
-    
-**TODO**
-  - Count the beers till First of May
-  - Better user interface -> sanitates the user input
-  - Add functionality to properly check the MoneyFlows
-  - Add functionality to count when the target is accomplished with the current budget
-  - Save the budget to a file and continue working with it later
-  
+    -
  
 **Usage**
   The application is used to create a budget with all the incomes and expenses.
   1. Tell your current balance
   2. Tell your target you wish to save
-  3. Choose a command(atm user needs to write it completely sameway)
+  3. Tell the current date
+  4. Choose a command
     - list
       - Lists all the available commands
     - moneyflow
@@ -27,34 +23,37 @@
       - asks name for the object
       - asks amount
       - asks repeatance
-      - asks for date
+      - asks for expiratron date
 
     - incomes
-      - Lists all the incomes, and the sum of them till the end of current month
+      - Lists all coming the incomes, showing name, amount and due date
+      - Delete an income
     - expenses
-      - Lists all the expenses, and the sum of them till the end of current month
-    - balance(todo)
-      - Update balance
-      - Shows the current balance
-      - Shows the approximated balance at the end of month
-    - budget(todo)
+      - Lists all coming the expenses, showing name, amount and due date
+      - Delete an expense
+    - budget
       - Shows all information of the budget
-    - target(todo)
-      - Update target
-      - Prints when your target has been completed with the current budget
-    - First of May(todo)
+    - target
+      - Prints when your target has been completed with the current budget or if it never will be.
+    - First of May
+      - Shows how many days to MayDay
       - Counts how many beers user can buy with the current budget at next First of May
-    - exit
-      - Exits
+      
+**Structure**
+-The main objects are Budget and Moneyflow.
+-Date object takes care of time management and DateLogic manipulates Dates.
+-Tools contains important input manipulation methods.
+-BudgetLogic takes care of making changes to Budget and creating new MoneyFlows
+-GUI is the allround Interface using JavaFX
       
 Class Diagram for the Application
 
 ![ClassDiagram](/Documentation/BeerBudget1.png)
 
-Sequence Diagram: Add new Income
-
-![Sequence Diagram: add new Income](/Documentation/allIncomes.png)
-
 Sequence Diagram: Print all Incomes
+
+![Sequence Diagram: add new Income](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgTGlzdCBhbGwgSW5jb21lcwoKVXNlci0-R1VJOiBTaG93ABAJR1VJLT5CdWRnZXRMb2dpYzogbGlzdAAwBygpCgoAEQsAIQg6IGFsbAAaCTsAHAcAOA9BcnJheUxpc3Q8AH4GPgAqCwBHDgCBEAUAEh4AgSEGUHJpbnRlcgANIACBTgUgVXNlcjogbm90ZSB3aXRoIGluZm8KCg&s=napkin)
+
+Sequence Diagram: Create new Income
 
 ![Sequence Diagram: Print all Incomes](/Documentation/sequenceNewIncome.png)
