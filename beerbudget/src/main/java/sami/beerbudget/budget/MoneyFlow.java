@@ -8,6 +8,7 @@ package sami.beerbudget.budget;
 import sami.beerbudget.logic.Date;
 
 /**
+ * Moneyflow contains info for the moneyflows.
  *
  * @author saklindq
  */
@@ -19,6 +20,15 @@ public class MoneyFlow {
     private boolean monthly;
     private boolean expense;
 
+    /**
+     * Creates new moneyflow with the given params.
+     *
+     * @param name name.
+     * @param amount amount, double.
+     * @param expiration due date.
+     * @param monthly if the expense/income is monthly.
+     * @param expense if expense/income.
+     */
     public MoneyFlow(String name, double amount, Date expiration, boolean monthly, boolean expense) {
         this.name = name;
         this.amount = amount;
@@ -28,6 +38,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Gives the amount.
      * @return the amount of the moneyflow.
      */
     public double getAmount() {
@@ -35,6 +46,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Gives boolean.
      * @param expense decides whether the moneyflow is expense or income.
      */
     public void setExpense(boolean expense) {
@@ -42,6 +54,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Gives the expiration date.
      * @return the due date of the moneyflow.
      */
     public Date getExpirationDate() {
@@ -49,6 +62,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Return name.
      * @return the name of the moneyflow.
      */
     public String getName() {
@@ -56,6 +70,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Return true if monthly.
      * @return returns true if moneyflow is expense or true if income.
      */
     public boolean isMonthly() {
@@ -63,6 +78,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Sets new amount.
      * @param amount is the new amount of the moneyflow. Always positive.
      */
     public void setAmount(double amount) {
@@ -70,6 +86,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Sets new dueDate.
      * @param newExpirationDate is set as the new due date for the moneyflow.
      */
     public void setExpirationDate(Date newExpirationDate) {
@@ -77,6 +94,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Sets the monthly-boolean.
      * @param monthly is set as the new value for the @param monthly.
      */
     public void setMonthly(boolean monthly) {
@@ -84,6 +102,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Sets new name.
      * @param name is the new name of the moneyflow.
      */
     public void setName(String name) {
@@ -91,6 +110,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Return the toString.
      * @return the name and value.
      */
     @Override
@@ -99,6 +119,7 @@ public class MoneyFlow {
     }
 
     /**
+     * Tells if moneyflow is expense.
      * @return true if moneyflow is expense.
      */
     public boolean isExpense() {

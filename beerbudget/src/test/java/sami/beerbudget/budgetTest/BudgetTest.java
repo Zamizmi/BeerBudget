@@ -80,14 +80,4 @@ public class BudgetTest {
         balanceIsPositive.setTarget(400.0);
         assertEquals("Your target is: 400.0" + "\n" + "Your Current Balance is: 500.0", balanceIsPositive.toString());
     }
-
-    @Test
-    public void expirationDateIsCorrect() {
-        Date newYear = new Date();
-        newYear.setDay(1);
-        newYear.setMonth(1);
-        newYear.setYear(2020);
-        balanceIsPositive.setEnd(newYear);
-        assertEquals(newYear, balanceIsPositive.getEnd());
-    }
 }

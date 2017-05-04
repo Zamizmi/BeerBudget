@@ -64,15 +64,6 @@ public class BudgetLogicTest {
     }
 
     @Test
-    public void blSetsDate() {
-        Date lastChristmas = new Date();
-        lastChristmas.setDay(25);
-        lastChristmas.setMonth(12);
-        bl.setEndDate(lastChristmas);
-        assertEquals("25.12.2017", bl.getEndDate().toString());
-    }
-
-    @Test
     public void blCheckIncomes() {
         bl.newIncome("name", 100, new Date(), true);
         assertEquals(1, bl.getIncomes().size());
@@ -175,7 +166,7 @@ public class BudgetLogicTest {
         bl.newIncome("100", 100, new Date(), true);
         bl.setBalance(200);
         System.out.println(bl.toString());
-        assertEquals("Your balance is 600.0. You will get 150.0 beers with this budget at next First of May!", bl.toString());
+        assertEquals("Your balance is 600.0. You will get 250.0 beers with this budget at next First of May!", bl.toString());
     }
 
     @Test
@@ -216,9 +207,12 @@ public class BudgetLogicTest {
 
     @Test
     public void reachTarget() {
+        Date feb = new Date();
+        feb.setMonth(2);
         bl.setTarget(2000);
-        bl.newIncome("200", 200.0, new Date(), true);
-        assertEquals("With the current budget it will take 304 days to reach the target.", bl.daysToTarget());
+        bl.newIncome("income", 500.0, feb, true);
+        System.out.println(bl.daysToTarget());
+        assertEquals("With the current budget it will take 120 days to reach the target.", bl.daysToTarget());
     }
 
     @Test
@@ -227,14 +221,16 @@ public class BudgetLogicTest {
         bl.newExpense("20", 20.0, new Date(), true);
         assertEquals("With the current budget, it seems you'll never reach your target, at least not in 50 years.", bl.daysToTarget());
     }
-
-//    @Test
-//    public void daysToFebFromNewYear() {
-//        bl.setCurrentDate(new Date());
-//        assertEquals(30, bl.daysToNextMonth(new Date()));
-//    }
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
+    @Test
+   public void shortOfBudget() {
+       bl.setTarget(1000);
+       bl.setBalance(500);
+       assertEquals(500, bl.shortOfTarget(),1.0);
+   }
+   
+   @Test
+   public void daysToGivenDate() {
+       assertEquals(31, DateLogic.daysToNextMonth(new Date()));
+   }
 }

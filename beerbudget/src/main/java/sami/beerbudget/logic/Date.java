@@ -6,7 +6,7 @@
 package sami.beerbudget.logic;
 
 /**
- *
+ *Date object. Made completely on my own. Took a lot of time.
  * @author saklindq
  */
 public class Date {
@@ -15,24 +15,39 @@ public class Date {
     private int month;
     private int year;
 
+    /**
+     * Constructor.
+     */
     public Date() {
         this.day = 1;
         this.month = 1;
         this.year = 2017;
     }
-
+    
+    /**
+     * Setter.
+     * @param day as int. 
+     */
     public void setDay(int day) {
         if (day <= monthLength() && day >= 1) {
             this.day = day;
         }
     }
 
+    /**
+     * Setter.
+     * @param month as int.
+     */
     public void setMonth(int month) {
         if (month <= 12 && month >= 1) {
             this.month = month;
         }
     }
 
+    /**
+     * Setter.
+     * @param year as int.
+     */
     public void setYear(int year) {
         this.year = year;
     }
@@ -59,15 +74,27 @@ public class Date {
         }
         return 30;
     }
-
+    
+    /**
+     * Getter.
+     * @return year. 
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Getter.
+     * @return month. 
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * Getter.
+     * @return day. 
+     */
     public int getDay() {
         return day;
     }
@@ -96,6 +123,9 @@ public class Date {
         }
     }
 
+    /**
+     * Grows the year by one.
+     */
     public void turnYear() {
         this.year++;
     }

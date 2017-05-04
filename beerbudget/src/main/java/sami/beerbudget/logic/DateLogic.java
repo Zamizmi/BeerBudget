@@ -6,6 +6,7 @@
 package sami.beerbudget.logic;
 
 /**
+ * Static class. Manipulates date-objects.
  *
  * @author saklindq
  */
@@ -28,6 +29,18 @@ public class DateLogic {
             toReturn++;
         }
         return toReturn;
+    }
+
+    /**
+     * Returns the length of the month of input date.
+     *
+     * @param date input.
+     * @return integer as the length of the month.
+     */
+    public static int lengthOfMonth(Date date) {
+        Date iteratorDate = iteratorDate(date);
+        iteratorDate.setDay(1);
+        return (daysToNextMonth(iteratorDate));
     }
 
     /**
@@ -109,40 +122,61 @@ public class DateLogic {
         return iteratorDate;
     }
 
-    //TODO: more validations, ex. dd.mm.yyyy
     /**
      * Turns correct String input to Date.
      *
-     * @param dateString String in format dd.mm.yyyy
+     * @param dateString String in format dd-mm-yyyy
      * @return Date from the input.
      */
     public static Date stringToDate(String dateString) {
+        try {
+            String[] split = dateString.split("-");
+            int day = Integer.parseInt(split[0]);
+            int month = Integer.parseInt(split[1]);
+            int year = Integer.parseInt(split[2]);
+            Date toReturn = new Date();
+            toReturn.setDay(day);
+            toReturn.setMonth(month);
+            toReturn.setYear(year);
+            return toReturn;
 
-        //takes the input in dd-mm-yyyy format
-        String[] split = dateString.split("-");
-        int day = Integer.parseInt(split[0]);
-        int month = Integer.parseInt(split[1]);
-        int year = Integer.parseInt(split[2]);
-        Date toReturn = new Date();
-        toReturn.setDay(day);
-        toReturn.setMonth(month);
-        toReturn.setYear(year);
-        return toReturn;
+        } catch (NumberFormatException e) {
+        }
+        return new Date();
     }
 
-    public static Date turnToSameDayNextMonth(Date startDate) {
+    /**
+     * Returns date but after one month. Notices different lengths of months.
+     *
+     * @param startDate date to start from.
+     * @return new Date.
+     */
+    public static Date getSameDayNextMonth(Date startDate) {
         Date iteratorDate = iteratorDate(startDate);
         iteratorDate.turnMonth();
-        if (startDate.getDay() > iteratorDate.monthLength() || isTheLastDayOfMonth(startDate)) {
+        if (startDate.getDay() >= iteratorDate.monthLength() || isTheLastDayOfMonth(startDate)) {
             iteratorDate.setDay(iteratorDate.monthLength());
         }
         return iteratorDate;
     }
 
+    /**
+     * Returns true if the date is the last day of the month.
+     *
+     * @param date to get checked.
+     * @return true if is the last day.
+     */
     public static boolean isTheLastDayOfMonth(Date date) {
         return date.getDay() == date.monthLength();
     }
 
+    /**
+     * Compares to dates and returns true if the first param is before second.
+     *
+     * @param first Date
+     * @param second Date
+     * @return true if first is earlier than second.
+     */
     public static boolean firstDateIsBeforeSecondDateOrEqual(Date first, Date second) {
         if (second.getYear() < first.getYear()) {
             return false;
@@ -155,4 +189,28 @@ public class DateLogic {
         }
         return true;
     }
+
+    /**
+     * Compares two dates, and returns true if first is earlier.
+     *
+     * @param first date.
+     * @param second date.
+     * @return boolean.
+     */
+    public static boolean firstDateIsBeforeSecondDate(Date first, Date second) {
+        if (first.getYear() < second.getYear()) {
+            return true;
+        }
+        if (second.getYear() >= first.getYear()) {
+            if (second.getMonth() <= first.getMonth()) {
+                if (second.getYear() <= first.getYear()) {
+                    return false;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

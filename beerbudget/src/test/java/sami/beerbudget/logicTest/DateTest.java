@@ -54,7 +54,7 @@ public class DateTest {
         newYear.setMonth(12);
         newYear.setYear(2019);
 
-        assertEquals("31.12.2019", newYear.toString());
+        assertEquals("31-12-2019", newYear.toString());
     }
 
     @Test
@@ -63,7 +63,7 @@ public class DateTest {
         firstOfApril.setMonth(1);
         firstOfApril.setYear(2017);
 
-        assertEquals("1.1.2017", firstOfApril.toString());
+        assertEquals("1-1-2017", firstOfApril.toString());
     }
 
     @Test

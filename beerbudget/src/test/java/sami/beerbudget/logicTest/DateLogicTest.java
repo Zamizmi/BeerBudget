@@ -145,11 +145,90 @@ public class DateLogicTest {
 
     @Test
     public void stringIsCreatedFromProperInput() {
-
+        String okDate = "05-02-2015";
+        assertEquals("5-2-2015", DateLogic.stringToDate(okDate).toString());
     }
 
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void firstOfJanIsCreatedFromBadInput() {
+        String badDate = "05-a0asd2-2aks015";
+        assertEquals("1-1-2017", DateLogic.stringToDate(badDate).toString());
+    }
+
+    @Test
+    public void lengthOfMonthIsOK() {
+        Date halfWayMay = new Date();
+        halfWayMay.setDay(15);
+        halfWayMay.setMonth(5);
+        assertEquals(31, DateLogic.lengthOfMonth(halfWayMay));
+    }
+
+    @Test
+    public void getSameDayNextMonth() {
+        Date lastOfFeb = new Date();
+        lastOfFeb.setMonth(2);
+        lastOfFeb.setDay(DateLogic.lengthOfMonth(lastOfFeb));
+        assertEquals("31-3-2017", DateLogic.getSameDayNextMonth(lastOfFeb).toString());
+    }
+
+    @Test
+    public void getSameDayNextMonthLeapYear() {
+        Date lastOfFeb = new Date();
+        lastOfFeb.setYear(2016);
+        lastOfFeb.setMonth(2);
+        lastOfFeb.setDay(DateLogic.lengthOfMonth(lastOfFeb));
+        assertEquals("31-3-2016", DateLogic.getSameDayNextMonth(lastOfFeb).toString());
+    }
+
+    @Test
+    public void getSameDayNextMonthFromJanLast() {
+        Date lastOfJan = new Date();
+        lastOfJan.setDay(DateLogic.lengthOfMonth(lastOfJan));
+        assertEquals("28-2-2017", DateLogic.getSameDayNextMonth(lastOfJan).toString());
+    }
+
+    @Test
+    public void isNotTheLastDayOfMonth() {
+        assertFalse(DateLogic.isTheLastDayOfMonth(new Date()));
+    }
+
+    @Test
+    public void isTheLastDayOfMonth() {
+        Date lastJan = new Date();
+        lastJan.setDay(31);
+        assertTrue(DateLogic.isTheLastDayOfMonth(lastJan));
+    }
+
+    @Test
+    public void firstDateIsBeforeSecondDate() {
+        Date first = new Date();
+        first.setYear(25); //1-1-25
+        Date second = new Date();
+        second.setMonth(2); //1-2-2017
+        assertTrue(DateLogic.firstDateIsBeforeSecondDate(first, second));
+    }
+
+    @Test
+    public void firstDateIsNotBeforeSecondDate() {
+        Date first = new Date();
+        first.setYear(2500); //1-1-2500
+        Date second = new Date();
+        second.setMonth(2); //1-2-2017
+        assertFalse(DateLogic.firstDateIsBeforeSecondDate(first, second));
+    }
+
+    @Test
+    public void firstDateIsEqualToSecondDate() {
+        Date first = new Date();
+        Date second = new Date();
+        assertTrue(DateLogic.firstDateIsBeforeSecondDateOrEqual(first, second));
+    }
+
+    @Test
+    public void secondYearGreater() {
+        Date first = new Date();
+        Date second = new Date();
+        second.setYear(2018);
+        assertTrue(DateLogic.firstDateIsBeforeSecondDate(first, second));
+    }
 }

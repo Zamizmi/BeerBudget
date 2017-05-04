@@ -47,14 +47,14 @@ public class MoneyFlowTest {
     public void incomeToStringIsCorrect() {
         MoneyFlow income = new MoneyFlow("income", 100, new Date(), true, false);
 
-        assertEquals("income will give : 100.0", income.toString());
+        assertEquals("income Amount: 100.0, Due Date: 1-1-2017", income.toString());
     }
 
     @Test
     public void expenseToStringIsCorrect() {
         MoneyFlow expense = new MoneyFlow("expense", 100, new Date(), true, true);
 
-        assertEquals("expense will cost : 100.0", expense.toString());
+        assertEquals("expense Amount: 100.0, Due Date: 1-1-2017", expense.toString());
     }
 
     @Test

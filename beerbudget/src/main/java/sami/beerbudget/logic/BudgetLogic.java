@@ -10,6 +10,8 @@ import sami.beerbudget.budget.Budget;
 import sami.beerbudget.budget.MoneyFlow;
 
 /**
+ * The most important class. Does almost everything needed to use beerbudget.
+ *
  * @author saklindq
  */
 public class BudgetLogic {
@@ -17,11 +19,20 @@ public class BudgetLogic {
     private Budget budget;
     private Date today;
 
+    /**
+     * Constructor.
+     */
     public BudgetLogic() {
         this.budget = new Budget();
         this.today = new Date();
     }
 
+    /**
+     * Another Constructor.
+     *
+     * @param budget the wanted budget.
+     * @param date the wanted date.
+     */
     public BudgetLogic(Budget budget, Date date) {
         this.budget = budget;
         this.today = date;
@@ -31,28 +42,18 @@ public class BudgetLogic {
      * Sets the balance to the given amount.
      *
      * @param balance input to be the new balance.
-     * @return true if succeeded.
      */
-    public boolean setBalance(double balance) {
+    public void setBalance(double balance) {
         this.budget.setBalance(balance);
-        if (this.budget.getBalance() == balance) {
-            return true;
-        }
-        return false;
     }
 
     /**
      * Sets the target to the given amount.
      *
      * @param target input to be the new target.
-     * @return true if succeeded.
      */
-    public boolean setTarget(double target) {
+    public void setTarget(double target) {
         this.budget.setTarget(target);
-        if (this.budget.getTarget() == target) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -76,7 +77,7 @@ public class BudgetLogic {
         Budget targetBudget = iteratorBudget(budget);
         BudgetLogic targetLogic = new BudgetLogic(targetBudget, toTarget);
         int daysToGo = 0;
-        while (targetLogic.currentBalance() <= this.getTarget()) {
+        while (targetLogic.currentBalance() < targetLogic.getTarget()) {
             targetLogic.turnOneDay();
             daysToGo++;
             if (daysToGo > 18263) {
@@ -89,54 +90,22 @@ public class BudgetLogic {
     /**
      * Returns budget iterator.
      *
-     * @param budget to be iterated.
+     * @param toBeCopiedBudget to be iterated.
      * @return iterator budget for use.
      */
-    public Budget iteratorBudget(Budget budget) {
+    public Budget iteratorBudget(Budget toBeCopiedBudget) {
         Budget iteratorBudget = new Budget();
-        iteratorBudget.setBalance(budget.getBalance());
-        iteratorBudget.setTarget(budget.getTarget());
-        iteratorBudget.setEnd(budget.getEnd());
-        return iteratorBudget;
-    }
-
-    /**
-     * Returns integer with days to fulfil the target. Counts days until target
-     * is fulfilled or 50 years is reached.
-     *
-     * @return the days to target or -1 if 50 years will pass.
-     */
-    public int daysToTargetInDays() {
-        Date toTarget = this.today;
-        Budget targetBudget = this.budget;
-        BudgetLogic targetLogic = new BudgetLogic(targetBudget, toTarget);
-        int daysToGo = 0;
-        while (targetLogic.currentBalance() < this.getTarget()) {
-            targetLogic.turnOneDay();
-            daysToGo++;
-            if (daysToGo > 18263) {
-                return -1;
-            }
+        iteratorBudget.setBalance(toBeCopiedBudget.getBalance());
+        iteratorBudget.setTarget(toBeCopiedBudget.getTarget());
+        for (MoneyFlow income : toBeCopiedBudget.getIncomes()) {
+            iteratorBudget.addIncome(income.getName(), income.getAmount(), income.getExpirationDate(), income.isMonthly());
         }
-        return daysToGo;
-    }
+        for (MoneyFlow expense : toBeCopiedBudget.getExpenses()) {
+            iteratorBudget.addExpense(expense.getName(), expense.getAmount(), expense.getExpirationDate(), expense.isMonthly());
 
-    /**
-     * Sets the input date as the budgets end date.
-     *
-     * @param date input to be the new end date of the budget.
-     */
-    public void setEndDate(Date date) {
-        this.budget.setEnd(date);
-    }
+        }
 
-    /**
-     * Get end date of budget.
-     *
-     * @return ending date of budget.
-     */
-    public Date getEndDate() {
-        return this.budget.getEnd();
+        return iteratorBudget;
     }
 
     /**
@@ -185,7 +154,7 @@ public class BudgetLogic {
         ArrayList<MoneyFlow> remove = new ArrayList<>();
         for (MoneyFlow income : this.budget.getIncomes()) {
             if (income.getExpirationDate().getDay() == this.today.getDay() && income.isMonthly()) {
-                income.setExpirationDate(DateLogic.turnToSameDayNextMonth(today));
+                income.setExpirationDate(DateLogic.getSameDayNextMonth(today));
                 this.budget.addToBalance(income.getAmount());
             } else if (income.getExpirationDate().getDay() == this.today.getDay() && income.getExpirationDate().getMonth() == this.today.getMonth() && !income.isMonthly()) {
                 this.budget.addToBalance(income.getAmount());
@@ -194,9 +163,14 @@ public class BudgetLogic {
         }
         this.budget.getIncomes().removeAll(remove);
     }
-    
+
+    /**
+     * Tells how short of target the budget is.
+     *
+     * @return the shortage..
+     */
     public Double shortOfTarget() {
-        return budget.getBalance() - budget.getTarget();
+        return budget.getTarget() - budget.getBalance();
     }
 
     /**
@@ -208,7 +182,7 @@ public class BudgetLogic {
         ArrayList<MoneyFlow> remove = new ArrayList<>();
         for (MoneyFlow expense : budget.getExpenses()) {
             if (expense.getExpirationDate().getDay() == this.today.getDay() && expense.isMonthly()) {
-                expense.setExpirationDate(DateLogic.turnToSameDayNextMonth(today));
+                expense.setExpirationDate(DateLogic.getSameDayNextMonth(today));
                 this.budget.subractFromBalance(expense.getAmount());
             } else if (expense.getExpirationDate().getDay() == this.today.getDay() && expense.getExpirationDate().getMonth() == this.today.getMonth() && !expense.isMonthly()) {
                 this.budget.subractFromBalance(expense.getAmount());
@@ -222,7 +196,7 @@ public class BudgetLogic {
      * Turns currentDate to next day. Updates balance.
      */
     public void turnOneDay() {
-        this.today.turnDay();
+        today.turnDay();
         updateBalance();
     }
 
@@ -253,7 +227,6 @@ public class BudgetLogic {
         turnManyDays(DateLogic.daysToNextYear(this.today));
     }
 
-    //TODO change to use DateLogic
     /**
      * Calls turnOneDay until one year has passed.
      */
@@ -342,7 +315,7 @@ public class BudgetLogic {
      */
     public double countBeers(double price) {
         Budget firstOfMay = this.budget;
-        Date firstOfMayDate = this.today;
+        Date firstOfMayDate = DateLogic.iteratorDate(today);
         BudgetLogic firstOfMayLogic = new BudgetLogic(firstOfMay, firstOfMayDate);
         while (firstOfMayDate.getDay() != 1 || firstOfMayDate.getMonth() != 5) {
             firstOfMayLogic.turnOneDay();
@@ -383,6 +356,12 @@ public class BudgetLogic {
         return atTheEndLogic.currentBalance();
     }
 
+    /**
+     * Deletes the given income.
+     *
+     * @param toBeDeleted gets deleted.
+     * @return true if succeeded.
+     */
     public boolean deleteIncome(MoneyFlow toBeDeleted) {
         if (this.budget.getIncomes().contains(toBeDeleted)) {
             this.budget.getIncomes().remove(toBeDeleted);
@@ -391,6 +370,12 @@ public class BudgetLogic {
         return false;
     }
 
+    /**
+     * Deletes the given expense.
+     *
+     * @param toBeDeleted gets deleted.
+     * @return true if succeeded.
+     */
     public boolean deleteExpense(MoneyFlow toBeDeleted) {
         if (this.budget.getExpenses().contains(toBeDeleted)) {
             this.budget.getExpenses().remove(toBeDeleted);
@@ -399,8 +384,9 @@ public class BudgetLogic {
         return false;
     }
 
-    //TODO: change the amount of beers to something else?
     /**
+     * toString. gives funny info of Vappu.
+     *
      * @return String with balance and amount of beers one can buy at next First
      * Of May.
      */

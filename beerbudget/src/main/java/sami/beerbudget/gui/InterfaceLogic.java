@@ -13,7 +13,7 @@ import sami.beerbudget.logic.Date;
 import sami.beerbudget.logic.DateLogic;
 
 /**
- *
+ *TXT-based interface. Not in use.
  * @author saklindq
  */
 public class InterfaceLogic {
@@ -21,6 +21,9 @@ public class InterfaceLogic {
     private BudgetLogic logic;
     private Scanner reader;
 
+    /**
+     * Constructor.
+     */
     public InterfaceLogic() {
         this.logic = new BudgetLogic();
         this.reader = new Scanner(System.in);
@@ -44,17 +47,9 @@ public class InterfaceLogic {
         commands();
     }
 
-    public Double textToDouble(String input) {
-        try {
-            Double toReturn = Double.parseDouble(input);
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
-        return 0.0;
-    }
-
     /**
      * Returns all the commands available for the text-based UI.
+     *
      * @return all commands.
      */
     public ArrayList<String> listCommands() {
@@ -84,8 +79,6 @@ public class InterfaceLogic {
                 askForMoneyFlow();
             } else if (command.equals("balance")) {
                 currentBalance();
-            } else if (command.equals("budget")) {
-                currentBudget();
             } else if (command.equals("incomes")) {
                 listIncomes();
             } else if (command.equals("expenses")) {
@@ -103,28 +96,6 @@ public class InterfaceLogic {
         }
     }
 
-    public void giveCommand(String command) {
-        if (command.equals("moneyflow")) {
-            askForMoneyFlow();
-        } else if (command.equals("balance")) {
-            currentBalance();
-        } else if (command.equals("budget")) {
-            currentBudget();
-        } else if (command.equals("incomes")) {
-            listIncomes();
-        } else if (command.equals("expenses")) {
-            listExpenses();
-        } else if (command.equals("target")) {
-            printTarget();
-        } else if (command.equals("First of May")) {
-            firstOfMay();
-        } else if (command.equals("exit")) {
-            System.out.println("SEE YA MONEY MASTER!");
-        } else {
-            System.out.println("Command was invalid!");
-        }
-    }
-
     /**
      * Prints the current balance and the amount User will have at the end of
      * the month according the budget.
@@ -132,13 +103,6 @@ public class InterfaceLogic {
     public void currentBalance() {
         System.out.println("You have " + logic.currentBalance() + " left for current month." + "\n"
                 + "Your balance will be " + logic.balanceAtTheEndOfMonth() + "at the end of the month");
-    }
-
-    /**
-     * Prints info of the budget.
-     */
-    public void currentBudget() {
-        System.out.println("todo");
     }
 
     /**
@@ -174,8 +138,8 @@ public class InterfaceLogic {
     }
 
     /**
-     * Prints funny things. Also prints the amount of beers User can buy at the next
-     * First Of May.
+     * Prints funny things. Also prints the amount of beers User can buy at the
+     * next First Of May.
      */
     public void firstOfMay() {
         //System.out.println(logic.toFirstOfMay());
@@ -258,6 +222,7 @@ public class InterfaceLogic {
     }
 
     /**
+     * Returns date from scanner.
      * @return Date from User input.
      */
     public Date askForDate() {
