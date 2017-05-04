@@ -14,5 +14,4 @@ Java application created for University of Helsinki Java course. Using the app Y
 
 [Manual](Documentation/manual.md)
 
-[Javadoc](https://htmlpreview.github.io/?
-https://github.com/Zamizmi/beerbudget/blob/master/javadoc/apidocs/index.html)
+[Javadoc](https://htmlpreview.github.io/?https://github.com/Zamizmi/beerbudget/blob/master/javadoc/apidocs/index.html)
