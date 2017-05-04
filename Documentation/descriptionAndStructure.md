@@ -52,7 +52,7 @@ Class Diagram for the Application
 
 Sequence Diagram: Print all Incomes
 
-![Sequence Diagram: add new Income](/Documentation/allIncomes.png)
+![Sequence Diagram: add new Income](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=dGl0bGUgTGlzdCBhbGwgSW5jb21lcwoKVXNlci0-R1VJOiBTaG93ABAJR1VJLT5CdWRnZXRMb2dpYzogbGlzdAAwBygpCgoAEQsAIQg6IGFsbAAaCTsAHAcAOA9BcnJheUxpc3Q8AH4GPgAqCwBHDgCBEAUAEh4AgSEGUHJpbnRlcgANIACBTgUgVXNlcjogbm90ZSB3aXRoIGluZm8KCg&s=napkin)
 
 Sequence Diagram: Create new Income
 
