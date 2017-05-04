@@ -50,10 +50,10 @@ Class Diagram for the Application
 
 ![ClassDiagram](/Documentation/BeerBudget1.png)
 
-Sequence Diagram: Add new Income
+Sequence Diagram: Print all Incomes
 
 ![Sequence Diagram: add new Income](/Documentation/allIncomes.png)
 
-Sequence Diagram: Print all Incomes
+Sequence Diagram: Create new Income
 
 ![Sequence Diagram: Print all Incomes](/Documentation/sequenceNewIncome.png)
